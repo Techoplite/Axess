@@ -18,6 +18,7 @@ class AssessmentCreate extends Component {
       answersToCurrentQuestion: [],
       isCorrectAnswer: false,
       isValid: true,
+      isReviewing: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -129,7 +130,7 @@ class AssessmentCreate extends Component {
               type="submit"
               id="submitAnswer"
               className="btn btn-primary float-right">
-              Add Another Answer
+              Add Answer
             </button>
           </form>
         </Fragment>
@@ -170,7 +171,7 @@ class AssessmentCreate extends Component {
             </li>
           ))}
           <h5 className="py-2 mb-5">
-            Create a Question in Assessment "{this.state.assessmentTitleTyped}"
+            Create a Question in Assessment "{this.state.assessmentTitle}"
           </h5>
           <form>
             <div className="form-group">
@@ -202,7 +203,7 @@ class AssessmentCreate extends Component {
                 value={this.state.value}
                 onChange={this.handleChange}
               />
-              {this.state.isValid === false && (
+              {this.state.isValid === false && !this.state.isReviewing && (
                 <small
                   id="questionDescriptionTyped"
                   className="form-text text-muted text-left">
@@ -238,38 +239,39 @@ class AssessmentCreate extends Component {
 
   getAssessmentTitleTypedForm() {
     return (
-      this.state.assessmentTitle === null && (
-        <Fragment>
-          <h3 className="py-2 mb-5">Create Assessment</h3>
-          <form id="assessmentTitleForm" onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label className="float-left" htmlFor="assessmentTitleTyped">
-                Assessment Title
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="assessmentTitleTyped"
-                value={this.state.value}
-                onChange={this.handleChange}
-              />
-              {this.state.isValid === false && (
+      <Fragment>
+        <h3 className="py-2 mb-5">Create Assessment</h3>
+        <form id="assessmentTitleForm" onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label className="float-left" htmlFor="assessmentTitleTyped">
+              Assessment Title
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="assessmentTitleTyped"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+            {this.state.isValid === false &&
+              !this.state.isReviewing &&
+              this.assessmentTitle === null && (
                 <small
                   id="questionDescriptionTyped"
                   className="form-text text-muted text-left">
                   The assessment title cannot be empty.
                 </small>
               )}
-            </div>
-            <button
-              type="submit"
-              id="assessmentTitleTyped"
-              className="btn btn-primary float-right">
-              Submit
-            </button>
-          </form>
-        </Fragment>
-      )
+          </div>
+          {this.state.assessmentTitle !== null}
+          <button
+            type="submit"
+            id="assessmentTitleTyped"
+            className="btn btn-primary float-right">
+            Submit
+          </button>
+        </form>
+      </Fragment>
     );
   }
 
@@ -316,9 +318,13 @@ class AssessmentCreate extends Component {
       );
     }
     if (event.target.id === "finishAssessment") {
-      this.setState({ isValid: true });
-      console.log(this.state.isValid);
-      this.getAssessmentTitleTypedForm();
+      this.setState(
+        { isValid: true, answerText: null, isReviewing: true },
+        () => {
+          console.log(this.state.isValid);
+          this.getAssessmentTitleTypedForm();
+        }
+      );
     }
     if (
       event.target.id === "submitAnswer" &&
