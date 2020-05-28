@@ -20,6 +20,7 @@ class AssessmentCreate extends Component {
       isValid: true,
       isEditingAssessmentTitle: true,
       isAddingAnswer: false,
+      isAssessmentFinished: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,6 +34,38 @@ class AssessmentCreate extends Component {
     this.refreshQuestionTypedForm = this.refreshQuestionTypedForm.bind(this);
     this.handleDeleteAnswer = this.handleDeleteAnswer.bind(this);
     this.handleIsCorrectAnswer = this.handleIsCorrectAnswer.bind(this);
+    this.getAssessmentReview = this.getAssessmentReview.bind(this);
+  }
+
+  getAssessmentReview() {
+    if (this.state.isAssessmentFinished === true) {
+      return (
+        <Fragment>
+          <h1 className="mb-5">Assessment review</h1>
+          <ul className="list-group">
+            <h4 className="display-4 mb-4">{this.state.assessmentTitle}</h4>
+            {this.state.questions.map(question => (
+              <li className="list-group-item" key={question.questionText}>
+                <h3 className="text-left">Question {question.number}</h3>
+                <br />
+                {question.questionDescription !== null && (
+                  <p>"{question.questionDescription}"</p>
+                )}
+                <br />"{question.questionText}"
+                <ul className="list-group">
+                  <br />
+                  {question.availableAnswers.map(answer => (
+                    <li className="list-group-item" key={answer.text}>
+                      {answer.text}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </Fragment>
+      );
+    }
   }
 
   handleIsCorrectAnswer(event) {
@@ -243,7 +276,8 @@ class AssessmentCreate extends Component {
   getAssessmentTitleTypedForm() {
     if (
       this.state.isAddingAnswer === false &&
-      this.state.isEditingAssessmentTitle === true
+      this.state.isEditingAssessmentTitle === true &&
+      this.state.isAssessmentFinished === false
     ) {
       return (
         <Fragment>
@@ -329,7 +363,12 @@ class AssessmentCreate extends Component {
     }
     if (event.target.id === "finishAssessment") {
       this.setState(
-        { isValid: true, answerText: null, isEditingAssessmentTitle: true },
+        {
+          isValid: true,
+          answerText: null,
+          isEditingAssessmentTitle: true,
+          isAssessmentFinished: true,
+        },
         () => {
           console.log(this.state.isValid);
           this.getAssessmentTitleTypedForm();
@@ -368,6 +407,7 @@ class AssessmentCreate extends Component {
           questions: [
             ...this.state.questions,
             {
+              number: this.state.questionNumber,
               questionText: this.state.questionText,
               questionDescription: this.state.questionDescription,
               availableAnswers: this.state.answersToCurrentQuestion,
@@ -396,6 +436,7 @@ class AssessmentCreate extends Component {
         {this.getAssessmentTitleTypedForm()}
         {this.getQuestionTypedForm()}
         {this.getAnswerTypedForm()}
+        {this.getAssessmentReview()}
       </Fragment>
     );
   }
