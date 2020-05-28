@@ -18,7 +18,8 @@ class AssessmentCreate extends Component {
       answersToCurrentQuestion: [],
       isCorrectAnswer: false,
       isValid: true,
-      isReviewing: false,
+      isEditingAssessmentTitle: true,
+      isAddingAnswer: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -146,7 +147,8 @@ class AssessmentCreate extends Component {
     if (
       this.state.questionDescription === null &&
       this.state.questionText === null &&
-      this.state.assessmentTitle !== null
+      this.state.assessmentTitle !== null &&
+      this.state.isEditingAssessmentTitle === false
     ) {
       return (
         <Fragment>
@@ -203,13 +205,14 @@ class AssessmentCreate extends Component {
                 value={this.state.value}
                 onChange={this.handleChange}
               />
-              {this.state.isValid === false && !this.state.isReviewing && (
-                <small
-                  id="questionDescriptionTyped"
-                  className="form-text text-muted text-left">
-                  The question cannot be an empty value.
-                </small>
-              )}
+              {this.state.isValid === false &&
+                !this.state.isEditingAssessmentTitle && (
+                  <small
+                    id="questionDescriptionTyped"
+                    className="form-text text-muted text-left">
+                    The question cannot be an empty value.
+                  </small>
+                )}
             </div>
             {this.state.questions.length !== 0 && (
               <button
@@ -238,41 +241,46 @@ class AssessmentCreate extends Component {
   };
 
   getAssessmentTitleTypedForm() {
-    return (
-      <Fragment>
-        <h3 className="py-2 mb-5">Create Assessment</h3>
-        <form id="assessmentTitleForm" onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label className="float-left" htmlFor="assessmentTitleTyped">
-              Assessment Title
-            </label>
-            <input
-              type="text"
-              className="form-control"
+    if (
+      this.state.isAddingAnswer === false &&
+      this.state.isEditingAssessmentTitle === true
+    ) {
+      return (
+        <Fragment>
+          <h3 className="py-2 mb-5">Create Assessment</h3>
+          <form id="assessmentTitleForm" onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label className="float-left" htmlFor="assessmentTitleTyped">
+                Assessment Title
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="assessmentTitleTyped"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+              {this.state.isValid === false &&
+                !this.state.isEditingAssessmentTitle &&
+                this.assessmentTitle === null && (
+                  <small
+                    id="questionDescriptionTyped"
+                    className="form-text text-muted text-left">
+                    The assessment title cannot be empty.
+                  </small>
+                )}
+            </div>
+            {this.state.assessmentTitle !== null}
+            <button
+              type="submit"
               id="assessmentTitleTyped"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-            {this.state.isValid === false &&
-              !this.state.isReviewing &&
-              this.assessmentTitle === null && (
-                <small
-                  id="questionDescriptionTyped"
-                  className="form-text text-muted text-left">
-                  The assessment title cannot be empty.
-                </small>
-              )}
-          </div>
-          {this.state.assessmentTitle !== null}
-          <button
-            type="submit"
-            id="assessmentTitleTyped"
-            className="btn btn-primary float-right">
-            Submit
-          </button>
-        </form>
-      </Fragment>
-    );
+              className="btn btn-primary float-right">
+              Submit
+            </button>
+          </form>
+        </Fragment>
+      );
+    }
   }
 
   setQuestionNumber() {
@@ -296,6 +304,7 @@ class AssessmentCreate extends Component {
         () => {
           this.setState({
             isValid: true,
+            isEditingAssessmentTitle: false,
           });
         }
       );
@@ -306,6 +315,7 @@ class AssessmentCreate extends Component {
     ) {
       this.setState(
         {
+          isAddingAnswer: true,
           questionNumber: ++this.state.questionNumber,
           questionDescription: this.state.questionDescriptionTyped,
           questionText: this.state.questionTextTyped,
@@ -319,7 +329,7 @@ class AssessmentCreate extends Component {
     }
     if (event.target.id === "finishAssessment") {
       this.setState(
-        { isValid: true, answerText: null, isReviewing: true },
+        { isValid: true, answerText: null, isEditingAssessmentTitle: true },
         () => {
           console.log(this.state.isValid);
           this.getAssessmentTitleTypedForm();
@@ -371,6 +381,7 @@ class AssessmentCreate extends Component {
             questionTextTyped: null,
             answersToCurrentQuestion: [],
             isValid: true,
+            isAddingAnswer: false,
           });
           this.getQuestionTypedForm();
         }
