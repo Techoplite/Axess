@@ -21,6 +21,7 @@ class AssessmentCreate extends Component {
       isEditingAssessmentTitle: true,
       isAddingAnswer: false,
       isAssessmentFinished: false,
+      numberOfCorrectAnswers: 0,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,6 +36,13 @@ class AssessmentCreate extends Component {
     this.handleDeleteAnswer = this.handleDeleteAnswer.bind(this);
     this.handleIsCorrectAnswer = this.handleIsCorrectAnswer.bind(this);
     this.getAssessmentReview = this.getAssessmentReview.bind(this);
+    this.incrementCorrectAnswers = this.incrementCorrectAnswers.bind(this);
+  }
+
+  incrementCorrectAnswers() {
+    this.setState({
+      numberOfCorrectAnswers: ++this.state.numberOfCorrectAnswers,
+    });
   }
 
   getAssessmentReview() {
@@ -389,6 +397,9 @@ class AssessmentCreate extends Component {
             isCorrect: this.state.isCorrectAnswer,
           });
           this.setState({ answersToCurrentQuestion });
+          if (this.state.isCorrectAnswer === true) {
+            this.incrementCorrectAnswers();
+          }
         })();
         (() => {
           this.setState({
