@@ -22,6 +22,7 @@ class AssessmentCreate extends Component {
       isAddingAnswer: false,
       isAssessmentFinished: false,
       numberOfCorrectAnswers: 0,
+      needMoreAnswers: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -416,11 +417,18 @@ class AssessmentCreate extends Component {
           }
         })();
         (() => {
-          this.setState({
-            isValid: true,
-            isCorrectAnswer: false,
-            answerTextTyped: null,
-          });
+          this.setState(
+            {
+              isValid: true,
+              isCorrectAnswer: false,
+              answerTextTyped: null,
+            },
+            () => {
+              if (this.state.answersToCurrentQuestion.length > 1) {
+                this.setState({ needMoreAnswers: false });
+              }
+            }
+          );
           this.refreshAnswerTypedForm();
           this.getAnswerTypedForm();
         })();
@@ -455,6 +463,11 @@ class AssessmentCreate extends Component {
           this.getQuestionTypedForm();
         }
       );
+    } else if (
+      event.target.id === "finishQuestion" &&
+      this.state.answersToCurrentQuestion.length < 2
+    ) {
+      this.setState({ needMoreAnswers: true });
     }
     this.setState({ isValid: false });
   }
