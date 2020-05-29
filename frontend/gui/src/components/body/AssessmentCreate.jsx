@@ -426,7 +426,11 @@ class AssessmentCreate extends Component {
         })();
       });
     }
-    if (event.target.id === "finishQuestion") {
+    if (
+      event.target.id === "finishQuestion" &&
+      this.state.answersToCurrentQuestion.length > 1 &&
+      this.state.numberOfCorrectAnswers === 1
+    ) {
       this.setState(
         {
           questions: [
