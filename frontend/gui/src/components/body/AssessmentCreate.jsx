@@ -37,11 +37,17 @@ class AssessmentCreate extends Component {
     this.handleIsCorrectAnswer = this.handleIsCorrectAnswer.bind(this);
     this.getAssessmentReview = this.getAssessmentReview.bind(this);
     this.incrementCorrectAnswers = this.incrementCorrectAnswers.bind(this);
+    this.decrementCorrectAnswers = this.decrementCorrectAnswers.bind(this);
   }
 
   incrementCorrectAnswers() {
     this.setState({
       numberOfCorrectAnswers: ++this.state.numberOfCorrectAnswers,
+    });
+  }
+  decrementCorrectAnswers() {
+    this.setState({
+      numberOfCorrectAnswers: --this.state.numberOfCorrectAnswers,
     });
   }
 
@@ -83,11 +89,19 @@ class AssessmentCreate extends Component {
 
   handleDeleteAnswer(event) {
     event.preventDefault();
-    const answerToDelete = event.target.name;
+    const answerName = event.target.name;
+    console.log("answerName", answerName);
+    const answerObject = this.state.answersToCurrentQuestion.find(answer => {
+      return answer.text === answerName;
+    });
+    console.log("answerObject", answerObject);
+    if (answerObject.isCorrect === true) {
+      this.decrementCorrectAnswers();
+    }
     this.setState({
       answersToCurrentQuestion: [
         ...this.state.answersToCurrentQuestion.filter(answer => {
-          return answer.text !== answerToDelete;
+          return answer.text !== answerName;
         }),
       ],
     });
