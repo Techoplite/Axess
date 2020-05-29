@@ -501,7 +501,7 @@ class AssessmentCreate extends Component {
       this.props.handleMessage(
         `You have created ${
           this.state.numberOfCorrectAnswers
-        } correct answers to this question, but there has to be only one. Please delete ${
+        } correct answers to this question, but there only has to be one. Please delete ${
           this.state.numberOfCorrectAnswers - 1
         }.`
       );
