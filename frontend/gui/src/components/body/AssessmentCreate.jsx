@@ -464,6 +464,9 @@ class AssessmentCreate extends Component {
           ],
         },
         () => {
+          this.props.handleMessage(
+            `Question number ${this.state.questionNumber} "${this.state.questionText}" successfully added to "${this.state.assessmentTitle}"`
+          );
           this.setState({
             questionDescription: null,
             questionText: null,
@@ -479,16 +482,29 @@ class AssessmentCreate extends Component {
       event.target.id === "finishQuestion" &&
       this.state.answersToCurrentQuestion.length < 2
     ) {
+      this.props.handleMessage(
+        "You only have one answer to your question. Please create at least another one."
+      );
       this.setState({ needMoreAnswers: true });
     } else if (
       event.target.id === "finishQuestion" &&
       this.state.numberOfCorrectAnswers < 1
     ) {
+      this.props.handleMessage(
+        "You have no correct answer to your question. Please create one."
+      );
       this.setState({ needAtLeastOneCorrectAnswer: true });
     } else if (
       event.target.id === "finishQuestion" &&
       this.state.numberOfCorrectAnswers > 1
     ) {
+      this.props.handleMessage(
+        `You have created ${
+          this.state.numberOfCorrectAnswers
+        } correct answers to this question, but there has to be only one. Please delete ${
+          this.state.numberOfCorrectAnswers - 1
+        }.`
+      );
       this.setState({ needAtMostOneCorrectAnswer: true });
     }
     this.setState({ isValid: false });

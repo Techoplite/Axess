@@ -9,12 +9,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: 'A message should display accordigly with the event occurred.'
+      message: ''
     }
+    this.handleMessage = this.handleMessage.bind(this)
   }
 
+  handleMessage(message) {
+    this.setState({ message: message })
+  }
 
   componentDidMount() {
+
   }
 
 
@@ -24,7 +29,7 @@ class App extends Component {
       <div className="App">
         <Navabar />
         {this.state.message && <Message text={this.state.message} />}
-        <Body message={this.state.message} />
+        <Body handleMessage={this.handleMessage} />
       </div>
     );
   }

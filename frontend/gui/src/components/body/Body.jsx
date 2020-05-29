@@ -18,7 +18,7 @@ class Body extends Component {
               <AssessmentList />
             </Route>
             <Route path="/assessment-create">
-              <AssessmentCreate />
+              <AssessmentCreate handleMessage={this.props.handleMessage} />
             </Route>
             <Route
               path="/assessment-detail/:id"
