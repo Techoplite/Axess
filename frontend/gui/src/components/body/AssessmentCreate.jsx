@@ -24,6 +24,7 @@ class AssessmentCreate extends Component {
       numberOfCorrectAnswers: 0,
       needMoreAnswers: false,
       needAtLeastOneCorrectAnswer: false,
+      needAtMostOneCorrectAnswer: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -100,13 +101,20 @@ class AssessmentCreate extends Component {
     if (answerObject.isCorrect === true) {
       this.decrementCorrectAnswers();
     }
-    this.setState({
-      answersToCurrentQuestion: [
-        ...this.state.answersToCurrentQuestion.filter(answer => {
-          return answer.text !== answerName;
-        }),
-      ],
-    });
+    this.setState(
+      {
+        answersToCurrentQuestion: [
+          ...this.state.answersToCurrentQuestion.filter(answer => {
+            return answer.text !== answerName;
+          }),
+        ],
+      },
+      () => {
+        if (this.state.numberOfCorrectAnswers === 1) {
+          this.setState({ needAtMostOneCorrectAnswer: false });
+        }
+      }
+    );
   }
 
   getAnswerTypedForm() {
@@ -477,6 +485,11 @@ class AssessmentCreate extends Component {
       this.state.numberOfCorrectAnswers < 1
     ) {
       this.setState({ needAtLeastOneCorrectAnswer: true });
+    } else if (
+      event.target.id === "finishQuestion" &&
+      this.state.numberOfCorrectAnswers > 1
+    ) {
+      this.setState({ needAtMostOneCorrectAnswer: true });
     }
     this.setState({ isValid: false });
   }
