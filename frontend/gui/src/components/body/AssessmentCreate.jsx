@@ -38,6 +38,14 @@ class AssessmentCreate extends Component {
     this.getAssessmentReview = this.getAssessmentReview.bind(this);
     this.incrementCorrectAnswers = this.incrementCorrectAnswers.bind(this);
     this.decrementCorrectAnswers = this.decrementCorrectAnswers.bind(this);
+    this.isDuplicateAnswer = this.isDuplicateAnswer.bind(this);
+  }
+
+  isDuplicateAnswer() {
+    return this.state.answersToCurrentQuestion.some(
+      answer => this.state.answerTextTyped === answer.text
+    );
+    // If we find that answer already exists, some will return true, otherwise false.
   }
 
   incrementCorrectAnswers() {
@@ -400,8 +408,19 @@ class AssessmentCreate extends Component {
     }
     if (
       event.target.id === "submitAnswer" &&
-      this.state.answerTextTyped !== null
+      this.state.answerTextTyped !== null &&
+      this.isDuplicateAnswer()
     ) {
+      console.log("Something is wrong");
+      return this.props.handleMessage(
+        "There is already another answer with this text. Please add a different one."
+      );
+    } else if (
+      event.target.id === "submitAnswer" &&
+      this.state.answerTextTyped !== null &&
+      !this.isDuplicateAnswer()
+    ) {
+      console.log("Everything OK");
       this.setState({ answerText: this.state.answerTextTyped }, () => {
         (() => {
           let answersToCurrentQuestion = [
@@ -450,6 +469,7 @@ class AssessmentCreate extends Component {
             `Question number ${this.state.questionNumber} "${this.state.questionText}" successfully added to "${this.state.assessmentTitle}"`
           );
           this.setState({
+            numberOfCorrectAnswers: 0,
             questionDescription: null,
             questionText: null,
             questionTextTyped: null,
