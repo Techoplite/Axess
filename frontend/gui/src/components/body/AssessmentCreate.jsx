@@ -390,9 +390,14 @@ class AssessmentCreate extends Component {
           questionText: this.state.questionTextTyped,
         },
         () => {
-          this.setState({
-            isValid: true,
-          });
+          this.setState(
+            {
+              isValid: true,
+            },
+            () => {
+              this.props.handleMessage("");
+            }
+          );
         }
       );
     }
