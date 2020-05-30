@@ -5,7 +5,7 @@ class AssessmentCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      assessmentTitleTyped: null,
+      assessmentTitle: null,
       assessmentTitle: null,
       questionDescriptionTyped: null,
       questionDescription: null,
@@ -25,14 +25,12 @@ class AssessmentCreate extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.getAssessmentTitleTypedForm = this.getAssessmentTitleTypedForm.bind(
-      this
-    );
-    this.getQuestionForm = this.getQuestionTypedForm.bind(this);
-    this.getAnswerTypedForm = this.getAnswerTypedForm.bind(this);
+    this.getAssessmentTitleForm = this.getAssessmentTitleForm.bind(this);
+    this.getQuestionForm = this.getQuestionForm.bind(this);
+    this.getAnswerForm = this.getAnswerForm.bind(this);
     this.setQuestionNumber = this.setQuestionNumber.bind(this);
-    this.refreshAnswerTypedForm = this.refreshAnswerTypedForm.bind(this);
-    this.refreshQuestionTypedForm = this.refreshQuestionTypedForm.bind(this);
+    this.refreshAnswerForm = this.refreshAnswerForm.bind(this);
+    this.refreshQuestionForm = this.refreshQuestionForm.bind(this);
     this.handleDeleteAnswer = this.handleDeleteAnswer.bind(this);
     this.handleIsCorrectAnswer = this.handleIsCorrectAnswer.bind(this);
     this.getAssessmentReview = this.getAssessmentReview.bind(this);
@@ -115,7 +113,7 @@ class AssessmentCreate extends Component {
     });
   }
 
-  getAnswerTypedForm() {
+  getAnswerForm() {
     if (
       this.state.questionText !== null &&
       this.state.assessmentTitle !== null
@@ -147,7 +145,7 @@ class AssessmentCreate extends Component {
             Create an Available Answer to Question {this.state.questionNumber} "
             {this.state.questionTextTyped}"
           </h5>
-          <form id="answerTypedForm">
+          <form id="answerForm">
             <div className="form-group">
               <label className="float-left" htmlFor="answerTextTyped">
                 Answer
@@ -204,11 +202,11 @@ class AssessmentCreate extends Component {
     }
   }
 
-  refreshAnswerTypedForm = () => {
-    document.getElementById("answerTypedForm").reset();
+  refreshAnswerForm = () => {
+    document.getElementById("answerForm").reset();
   };
 
-  getQuestionTypedForm() {
+  getQuestionForm() {
     if (
       this.state.questionDescription === null &&
       this.state.questionText === null &&
@@ -306,11 +304,11 @@ class AssessmentCreate extends Component {
     }
   }
 
-  refreshQuestionTypedForm = () => {
-    document.getElementById("questionTypedForm").reset();
+  refreshQuestionForm = () => {
+    document.getElementById("questionForm").reset();
   };
 
-  getAssessmentTitleTypedForm() {
+  getAssessmentTitleForm() {
     if (
       this.state.isAddingAnswer === false &&
       this.state.isEditingAssessmentTitle === true &&
@@ -321,13 +319,13 @@ class AssessmentCreate extends Component {
           <h3 className="py-2 mb-5">Create Assessment</h3>
           <form id="assessmentTitleForm" onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <label className="float-left" htmlFor="assessmentTitleTyped">
+              <label className="float-left" htmlFor="assessmentTitle">
                 Assessment Title
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="assessmentTitleTyped"
+                id="assessmentTitle"
                 value={this.state.value}
                 onChange={this.handleChange}
               />
@@ -344,7 +342,7 @@ class AssessmentCreate extends Component {
             {this.state.assessmentTitle !== null}
             <button
               type="submit"
-              id="assessmentTitleTyped"
+              id="assessmentTitle"
               className="btn btn-primary float-right">
               Submit
             </button>
@@ -366,11 +364,11 @@ class AssessmentCreate extends Component {
     event.preventDefault();
     if (
       event.target.id === "assessmentTitleForm" &&
-      this.state.assessmentTitleTyped !== null
+      this.state.assessmentTitle !== null
     ) {
       this.setState(
         {
-          assessmentTitle: this.state.assessmentTitleTyped,
+          assessmentTitle: this.state.assessmentTitle,
         },
         () => {
           this.setState({
@@ -408,7 +406,7 @@ class AssessmentCreate extends Component {
         },
         () => {
           console.log(this.state.isValid);
-          this.getAssessmentTitleTypedForm();
+          this.getAssessmentTitleForm();
         }
       );
     }
@@ -444,8 +442,8 @@ class AssessmentCreate extends Component {
               isCorrectAnswer: false,
               answerTextTyped: null,
             });
-            this.refreshAnswerTypedForm();
-            this.getAnswerTypedForm();
+            this.refreshAnswerForm();
+            this.getAnswerForm();
           })();
         });
       }
@@ -481,7 +479,7 @@ class AssessmentCreate extends Component {
             isValid: true,
             isAddingAnswer: false,
           });
-          this.getQuestionTypedForm();
+          this.getQuestionForm();
         }
       );
     } else if (
@@ -516,9 +514,9 @@ class AssessmentCreate extends Component {
   render() {
     return (
       <Fragment>
-        {this.getAssessmentTitleTypedForm()}
-        {this.getQuestionTypedForm()}
-        {this.getAnswerTypedForm()}
+        {this.getAssessmentTitleForm()}
+        {this.getQuestionForm()}
+        {this.getAnswerForm()}
         {this.getAssessmentReview()}
       </Fragment>
     );
