@@ -121,10 +121,10 @@ class AssessmentCreate extends Component {
       return (
         <Fragment>
           <h3 className="mb-3">Available Answers</h3>
-          <ul>
+          <ul className="list-group">
             {this.state.answersToCurrentQuestion.map(answer => (
-              <li key={answer.text} className="list-group-item text-left pl-5">
-                {answer.text}{" "}
+              <li key={answer.text} className="list-group-item text-left  ">
+                {answer.text}
                 <button
                   onClick={this.handleDeleteAnswer}
                   type="submit"
@@ -215,7 +215,7 @@ class AssessmentCreate extends Component {
     ) {
       return (
         <Fragment>
-          <h3 className="mb-3">Assessment Questions</h3>
+          <h3 className="mb-4">Assessment Questions</h3>
           {this.state.questions.map(question => (
             <li key={question.questionText} className="list-group-item mb-5">
               <h4>Question {question.number}</h4>
@@ -225,7 +225,7 @@ class AssessmentCreate extends Component {
               <p className="text-left">"{question.questionText}"</p>
               <p className="text-left">Available answers</p>
               {question.availableAnswers.map(answer => (
-                <ul key={answer.text}>
+                <ul className="list-group" key={answer.text}>
                   <li
                     key={answer.text}
                     className="list-group-item text-left pl-5">
