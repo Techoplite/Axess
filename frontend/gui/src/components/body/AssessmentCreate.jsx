@@ -408,45 +408,43 @@ class AssessmentCreate extends Component {
     }
     if (
       event.target.id === "submitAnswer" &&
-      this.state.answerTextTyped !== null &&
-      this.isDuplicateAnswer()
+      this.state.answerTextTyped !== null
     ) {
-      console.log("Something is wrong");
-      return this.props.handleMessage(
-        "There is already another answer with this text. Please add a different one."
-      );
-    } else if (
-      event.target.id === "submitAnswer" &&
-      this.state.answerTextTyped !== null &&
-      !this.isDuplicateAnswer()
-    ) {
-      console.log("Everything OK");
-      this.setState({ answerText: this.state.answerTextTyped }, () => {
-        (() => {
-          let answersToCurrentQuestion = [
-            ...this.state.answersToCurrentQuestion,
-          ];
-          answersToCurrentQuestion.push({
-            text: this.state.answerText,
-            isCorrect: this.state.isCorrectAnswer,
-          });
-          this.setState({ answersToCurrentQuestion });
-          if (this.state.isCorrectAnswer === true) {
-            this.incrementCorrectAnswers();
-          }
-        })();
-        (() => {
-          this.props.handleMessage("");
-          this.setState({
-            isValid: true,
-            isCorrectAnswer: false,
-            answerTextTyped: null,
-          });
-          this.refreshAnswerTypedForm();
-          this.getAnswerTypedForm();
-        })();
-      });
+      if (this.isDuplicateAnswer()) {
+        console.log("Something is wrong");
+        return this.props.handleMessage(
+          "There is already another answer with this text. Please add a different one."
+        );
+      } else {
+        console.log("Everything OK");
+        this.setState({ answerText: this.state.answerTextTyped }, () => {
+          (() => {
+            let answersToCurrentQuestion = [
+              ...this.state.answersToCurrentQuestion,
+            ];
+            answersToCurrentQuestion.push({
+              text: this.state.answerText,
+              isCorrect: this.state.isCorrectAnswer,
+            });
+            this.setState({ answersToCurrentQuestion });
+            if (this.state.isCorrectAnswer === true) {
+              this.incrementCorrectAnswers();
+            }
+          })();
+          (() => {
+            this.props.handleMessage("");
+            this.setState({
+              isValid: true,
+              isCorrectAnswer: false,
+              answerTextTyped: null,
+            });
+            this.refreshAnswerTypedForm();
+            this.getAnswerTypedForm();
+          })();
+        });
+      }
     }
+
     if (
       event.target.id === "finishQuestion" &&
       this.state.answersToCurrentQuestion.length > 1 &&
@@ -501,7 +499,7 @@ class AssessmentCreate extends Component {
       this.props.handleMessage(
         `You have created ${
           this.state.numberOfCorrectAnswers
-        } correct answers to this question, but there only has to be one. Please delete ${
+        } correct answers to this question, but there only has to be 1. Please delete ${
           this.state.numberOfCorrectAnswers - 1
         }.`
       );
