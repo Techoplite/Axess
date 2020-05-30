@@ -218,11 +218,11 @@ class AssessmentCreate extends Component {
           <h3 className="mb-4">Assessment Questions</h3>
           {this.state.questions.map(question => (
             <li key={question.questionText} className="list-group-item mb-5">
-              <h4>Question {question.number}</h4>
+              <h4 className="text-left">Question {question.number}</h4>
               {question.questionDescription && (
-                <p className="text-left">"{question.questionDescription}"</p>
+                <p>"{question.questionDescription}"</p>
               )}
-              <p className="text-left">"{question.questionText}"</p>
+              <p>"{question.questionText}"</p>
               <p className="text-left">Available answers</p>
               {question.availableAnswers.map(answer => (
                 <ul className="list-group" key={answer.text}>
