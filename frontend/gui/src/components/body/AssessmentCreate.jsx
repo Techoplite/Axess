@@ -123,24 +123,26 @@ class AssessmentCreate extends Component {
       return (
         <Fragment>
           <h3 className="mb-3">Available Answers</h3>
-          {this.state.answersToCurrentQuestion.map(answer => (
-            <li key={answer.text} className="list-group-item text-left pl-5">
-              {answer.text}{" "}
-              <button
-                onClick={this.handleDeleteAnswer}
-                type="submit"
-                name={answer.text}
-                id="deleteAnswer"
-                className="btn btn-sm btn-danger float-right align-middle mt-n1 mr-2">
-                Delete
-              </button>
-              {answer.isCorrect && (
-                <span className="badge badge-pill badge-success float-right mr-4">
-                  Correct Answer
-                </span>
-              )}
-            </li>
-          ))}
+          <ul>
+            {this.state.answersToCurrentQuestion.map(answer => (
+              <li key={answer.text} className="list-group-item text-left pl-5">
+                {answer.text}{" "}
+                <button
+                  onClick={this.handleDeleteAnswer}
+                  type="submit"
+                  name={answer.text}
+                  id="deleteAnswer"
+                  className="btn btn-sm btn-danger float-right align-middle mt-n1 mr-2">
+                  Delete
+                </button>
+                {answer.isCorrect && (
+                  <span className="badge badge-pill badge-success float-right mr-4">
+                    Correct Answer
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
           <h5 className="py-2 mt-5 mb-3">
             Create an Available Answer to Question {this.state.questionNumber} "
             {this.state.questionTextTyped}"
@@ -218,12 +220,17 @@ class AssessmentCreate extends Component {
           <h3 className="mb-3">Assessment Questions</h3>
           {this.state.questions.map(question => (
             <li key={question.questionText} className="list-group-item mb-5">
-              <p className="text-left">"{question.questionDescription}"</p>
+              <h4>Question {question.number}</h4>
+              {question.questionDescription && (
+                <p className="text-left">"{question.questionDescription}"</p>
+              )}
               <p className="text-left">"{question.questionText}"</p>
-              <p className="text-left">Available answers:</p>
+              <p className="text-left">Available answers</p>
               {question.availableAnswers.map(answer => (
                 <ul key={answer.text}>
-                  <li key={answer.text} className="list-group-item">
+                  <li
+                    key={answer.text}
+                    className="list-group-item text-left pl-5">
                     {answer.text}
                     {answer.isCorrect && (
                       <span className="badge badge-pill badge-success float-right mr-4">
