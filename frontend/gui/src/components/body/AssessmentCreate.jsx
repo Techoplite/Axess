@@ -45,7 +45,6 @@ class AssessmentCreate extends Component {
     return this.state.answersToCurrentQuestion.some(
       answer => this.state.answerTextTyped === answer.text
     );
-    // If we find that answer already exists, some will return true, otherwise false.
   }
 
   incrementCorrectAnswers() {
