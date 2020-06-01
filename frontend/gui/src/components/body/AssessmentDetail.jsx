@@ -32,7 +32,7 @@ class AssessmentDetail extends Component {
         className="text-left list-group-item py-3 mb-5 border">
         <h5 className="pb-2">Question {question.number}:</h5>
         <li className="text-center list-group-item">
-          "{question.description}"
+          {question.description !== null && <p>"{question.description}"</p>}
           <br /> "{question.question}"
         </li>
         <br />

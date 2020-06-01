@@ -6,7 +6,6 @@ class AssessmentCreate extends Component {
     super(props);
     this.state = {
       assessmentTitle: null,
-      assessmentTitle: null,
       questionDescriptionTyped: null,
       questionDescription: null,
       questionTextTyped: null,
@@ -408,6 +407,58 @@ class AssessmentCreate extends Component {
       );
     }
     if (event.target.id === "finishAssessment") {
+      fetch("http://localhost:8000/api/assessments/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: this.state.assessmentTitle,
+        }),
+      })
+        .then(response => response.json())
+        .then(data =>
+          this.setState({ currentAssessmentID: data.id }, () => {
+            console.log(data);
+            fetch("http://localhost:8000/api/assessments/")
+              .then(response => response.json())
+              .then(data => console.log(data));
+            this.state.questions.map(question =>
+              fetch("http://localhost:8000/api/questions/", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  description: question.questionDescription,
+                  question: question.questionText,
+                  number: question.number,
+                  assessment: this.state.currentAssessmentID,
+                }),
+              })
+                .then(response => response.json())
+                .then(data =>
+                  this.setState({ currentQuestionID: data.id }, () =>
+                    question.availableAnswers.map(answer =>
+                      fetch("http://localhost:8000/api/answers/", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          answer: answer.text,
+                          question: this.state.currentQuestionID,
+                          is_correct_answer: answer.isCorrect,
+                        }),
+                      })
+                    )
+                  )
+                )
+            );
+          })
+        )
+        .then();
+
       this.setState(
         {
           isValid: true,

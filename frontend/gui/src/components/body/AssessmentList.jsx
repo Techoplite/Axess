@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { HashRouter as Router, Link } from "react-router-dom";
 
 class AssessmentList extends Component {
@@ -11,25 +11,37 @@ class AssessmentList extends Component {
   }
 
   componentDidMount() {
-    fetch("http://127.0.0.1:8000/api/assessments/")
+    fetch("http://127.0.0.1:8000/api/assessments/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token bd7c6fdc5041f92eb29c942ada9ae9ebe5889b9d",
+      },
+    })
       .then(response => response.json())
       .then(data => this.setState({ assessments: data }));
   }
 
   getAssessment() {
-    return this.state.assessments.map(assessment => (
-      <div key={assessment.id}>
+    console.log(this.state.assessments);
+
+    return (
+      <Fragment>
         <h3 className="py-2">Your Assessments</h3>
-        <Link
-          className="nav-link active"
-          key={assessment.id}
-          to={`assessment-detail/${assessment.id}`}>
-          <li key={assessment.id} className="list-group-item">
-            {assessment.title}
-          </li>
-        </Link>
-      </div>
-    ));
+        {this.state.assessments.map(assessment => (
+          <div key={assessment.id}>
+            <Link
+              className="nav-link active"
+              key={assessment.id}
+              to={`assessment-detail/${assessment.id}`}>
+              <li key={assessment.id} className="list-group-item">
+                {assessment.title}
+              </li>
+            </Link>
+          </div>
+        ))}
+      </Fragment>
+    );
   }
 
   render() {

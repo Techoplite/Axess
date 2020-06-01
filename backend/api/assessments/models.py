@@ -10,7 +10,7 @@ class Assessment(models.Model):
 
 
 class Question(models.Model):
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     question = models.CharField(max_length=200)
     number = models.PositiveSmallIntegerField()
     assessment = models.ForeignKey(Assessment, on_delete=models.CASCADE)
