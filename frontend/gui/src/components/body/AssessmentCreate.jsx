@@ -416,11 +416,15 @@ class AssessmentCreate extends Component {
           isAssessmentFinished: true,
         },
         () => {
-          console.log(this.state.isValid);
-          this.getAssessmentTitleForm();
+          if (this.state.isAssessmentFinished === true) {
+            this.props.handleMessage(
+              `Assessment "${this.state.assessmentTitle}" successfully created.`
+            );
+          }
         }
       );
     }
+
     if (
       event.target.id === "submitAnswer" &&
       this.state.answerTextTyped !== null
