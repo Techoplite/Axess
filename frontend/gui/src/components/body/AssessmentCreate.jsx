@@ -74,8 +74,13 @@ class AssessmentCreate extends Component {
                 <ul className="list-group">
                   <br />
                   {question.availableAnswers.map(answer => (
-                    <li className="list-group-item" key={answer.text}>
+                    <li className="list-group-item text-left" key={answer.text}>
                       {answer.text}
+                      {answer.isCorrect && (
+                        <span className="badge badge-pill badge-success float-right mr-4">
+                          Correct Answer
+                        </span>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -357,6 +362,7 @@ class AssessmentCreate extends Component {
   }
 
   handleChange(event) {
+    console.log(event.target.id);
     this.setState({ [event.target.id]: event.target.value });
   }
 
