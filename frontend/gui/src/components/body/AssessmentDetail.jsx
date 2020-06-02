@@ -18,8 +18,13 @@ class AssessmentDetail extends Component {
     return this.state.answers.map(
       answer =>
         id === answer.question && (
-          <li className="text-center list-group-item" key={answer.id}>
-            {answer.answer} {answer.is_correct_answer}
+          <li className="list-group-item text-left pl-5" key={answer.id}>
+            {answer.answer}
+            {answer.is_correct_answer && (
+              <span className="badge badge-pill badge-success float-right mr-4">
+                Correct Answer
+              </span>
+            )}
           </li>
         )
     );
@@ -75,7 +80,7 @@ class AssessmentDetail extends Component {
   render() {
     return (
       <div>
-        <h3 className="py-2">{this.state.assessment.title}</h3>
+        <h3 className="py-2 display-4">{this.state.assessment.title}</h3>
         <ul className="list-group">{this.getAssessmentQuestions()}</ul>
       </div>
     );

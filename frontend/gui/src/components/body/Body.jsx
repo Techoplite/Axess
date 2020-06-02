@@ -13,6 +13,11 @@ class Body extends Component {
     return (
       <Router>
         <div className="col-7 mx-auto mt-4 text-center pb-5">
+          <div className="jumbotron jumbotron-fluid">
+            <div className="container">
+              <h1 className="display-4">Axess</h1>
+            </div>
+          </div>
           <Switch>
             <Route path="/assessment-list">
               <AssessmentList handleMessage={this.props.handleMessage} />
