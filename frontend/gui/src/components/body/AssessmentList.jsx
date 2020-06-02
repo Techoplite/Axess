@@ -71,6 +71,7 @@ class AssessmentList extends Component {
   }
 
   componentDidMount() {
+    this.props.handleMessage("");
     this.loadData();
   }
 

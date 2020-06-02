@@ -15,7 +15,7 @@ class Body extends Component {
         <div className="col-7 mx-auto mt-4 text-center">
           <Switch>
             <Route path="/assessment-list">
-              <AssessmentList />
+              <AssessmentList handleMessage={this.props.handleMessage} />
             </Route>
             <Route path="/assessment-create">
               <AssessmentCreate handleMessage={this.props.handleMessage} />
