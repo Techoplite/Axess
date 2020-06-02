@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navabar from './components/Navbar/Navbar';
 import Message from './components/MessageBar.jsx/Message';
 import Body from './components/body/Body'
+import Footer from './components/footer/Footer';
 
 
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
         <Navabar />
         {this.state.message && <Message text={this.state.message} />}
         <Body handleMessage={this.handleMessage} />
+        <Footer />
       </div>
     );
   }

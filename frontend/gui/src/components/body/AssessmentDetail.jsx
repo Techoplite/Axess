@@ -42,20 +42,15 @@ class AssessmentDetail extends Component {
     ));
   }
 
-  componentDidMount() {
-    // Fetch assessment from id value passed by AssessmentList
+  async componentDidMount() {
     const { id } = this.props.match.params;
-    fetch(`http://127.0.0.1:8000/api/assessments/${id}/`)
-      .then(response => response.json())
-      .then(data => {
-        this.setState({
-          assessment: data,
-        });
-      });
-    // Fetch questions only related to this assessment
-    fetch("http://127.0.0.1:8000/api/questions/")
-      .then(response => response.json())
-      .then(data =>
+    Promise.all([
+      await fetch(`http://127.0.0.1:8000/api/assessments/${id}/`),
+      await fetch("http://127.0.0.1:8000/api/questions/"),
+      await fetch("http://127.0.0.1:8000/api/answers/"),
+    ]).then(([res1, res2, res3]) => {
+      res1.json().then(data => this.setState({ assessment: data }));
+      res2.json().then(data =>
         data.map(question => {
           return (
             question.assessment === this.state.assessment.id &&
@@ -65,10 +60,7 @@ class AssessmentDetail extends Component {
           );
         })
       );
-    // Fetch answers only related to this assessment questions
-    fetch("http://127.0.0.1:8000/api/answers/")
-      .then(response => response.json())
-      .then(data =>
+      res3.json().then(data =>
         data.map(answer => {
           return this.state.questions.map(
             question =>
@@ -77,6 +69,7 @@ class AssessmentDetail extends Component {
           );
         })
       );
+    });
   }
 
   render() {

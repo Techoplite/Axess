@@ -12,7 +12,7 @@ class Body extends Component {
   render() {
     return (
       <Router>
-        <div className="col-7 mx-auto mt-4 text-center">
+        <div className="col-7 mx-auto mt-4 text-center pb-5">
           <Switch>
             <Route path="/assessment-list">
               <AssessmentList handleMessage={this.props.handleMessage} />
