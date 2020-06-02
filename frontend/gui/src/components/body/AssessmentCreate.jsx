@@ -36,6 +36,12 @@ class AssessmentCreate extends Component {
     this.incrementCorrectAnswers = this.incrementCorrectAnswers.bind(this);
     this.decrementCorrectAnswers = this.decrementCorrectAnswers.bind(this);
     this.isDuplicateAnswer = this.isDuplicateAnswer.bind(this);
+    this.handleCreateNewAssessment = this.handleCreateNewAssessment.bind(this);
+  }
+
+  handleCreateNewAssessment() {
+    this.setState({ isAssessmentFinished: false });
+    this.props.handleMessage("");
   }
 
   isDuplicateAnswer() {
@@ -85,6 +91,12 @@ class AssessmentCreate extends Component {
                 </ul>
               </li>
             ))}
+            <button
+              id="createNewAssessment"
+              className="btn btn-success mt-3"
+              onClick={this.handleCreateNewAssessment}>
+              Create New Assessment
+            </button>
           </ul>
         </Fragment>
       );
@@ -452,7 +464,7 @@ class AssessmentCreate extends Component {
                 )
             );
           })
-        )
+        );
 
       this.setState(
         {
