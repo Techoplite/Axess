@@ -99,11 +99,9 @@ class AssessmentCreate extends Component {
   handleDeleteAnswer(event) {
     event.preventDefault();
     const answerName = event.target.name;
-    console.log("answerName", answerName);
     const answerObject = this.state.answersToCurrentQuestion.find(answer => {
       return answer.text === answerName;
     });
-    console.log("answerObject", answerObject);
     if (answerObject.isCorrect === true) {
       this.decrementCorrectAnswers();
     }
@@ -361,7 +359,6 @@ class AssessmentCreate extends Component {
   }
 
   handleChange(event) {
-    console.log(event.target.id);
     this.setState({ [event.target.id]: event.target.value });
   }
 
@@ -419,10 +416,9 @@ class AssessmentCreate extends Component {
         .then(response => response.json())
         .then(data =>
           this.setState({ currentAssessmentID: data.id }, () => {
-            console.log(data);
-            fetch("http://localhost:8000/api/assessments/")
-              .then(response => response.json())
-              .then(data => console.log(data));
+            fetch("http://localhost:8000/api/assessments/").then(response =>
+              response.json()
+            );
             this.state.questions.map(question =>
               fetch("http://localhost:8000/api/questions/", {
                 method: "POST",
@@ -457,7 +453,6 @@ class AssessmentCreate extends Component {
             );
           })
         )
-        .then();
 
       this.setState(
         {
@@ -481,12 +476,10 @@ class AssessmentCreate extends Component {
       this.state.answerTextTyped !== null
     ) {
       if (this.isDuplicateAnswer()) {
-        console.log("Something is wrong");
         return this.props.handleMessage(
           "There is already another answer with this text. Please add a different one."
         );
       } else {
-        console.log("Everything OK");
         this.setState({ answerText: this.state.answerTextTyped }, () => {
           (() => {
             let answersToCurrentQuestion = [

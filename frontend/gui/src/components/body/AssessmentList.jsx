@@ -8,9 +8,53 @@ class AssessmentList extends Component {
       assessments: [],
     };
     this.getAssessment = this.getAssessment.bind(this);
+    this.handleDeleteAssessment = this.handleDeleteAssessment.bind(this);
+    this.loadData = this.loadData.bind(this);
   }
 
-  componentDidMount() {
+  handleDeleteAssessment(event) {
+    event.preventDefault();
+    const assessmentName = event.target.name;
+    fetch("http://localhost:8000/api/assessments/")
+      .then(response => response.json())
+      .then(data =>
+        this.setState(
+          {
+            assessmentObject: data.find(
+              assessment => assessment.title === assessmentName
+            ),
+          },
+          () => {
+            const id = this.state.assessmentObject.id;
+            fetch(`http://localhost:8000/api/assessments/${id}`, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then(response => response.text())
+              .then(data => {
+                fetch("http://127.0.0.1:8000/api/assessments/", {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization:
+                      "Token bd7c6fdc5041f92eb29c942ada9ae9ebe5889b9d",
+                  },
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    this.setState({
+                      assessments: data,
+                    });
+                  });
+              });
+          }
+        )
+      );
+  }
+
+  loadData() {
     fetch("http://127.0.0.1:8000/api/assessments/", {
       method: "GET",
       headers: {
@@ -19,12 +63,18 @@ class AssessmentList extends Component {
       },
     })
       .then(response => response.json())
-      .then(data => this.setState({ assessments: data }));
+      .then(data => {
+        this.setState({
+          assessments: data,
+        });
+      });
+  }
+
+  componentDidMount() {
+    this.loadData();
   }
 
   getAssessment() {
-    console.log(this.state.assessments);
-
     return (
       <Fragment>
         <h3 className="py-2">Your Assessments</h3>
@@ -36,6 +86,14 @@ class AssessmentList extends Component {
               to={`assessment-detail/${assessment.id}`}>
               <li key={assessment.id} className="list-group-item">
                 {assessment.title}
+                <button
+                  onClick={this.handleDeleteAssessment}
+                  type="submit"
+                  name={assessment.title}
+                  id="deleteAssessment"
+                  className="btn btn-sm btn-danger float-right align-middle mt-n1 mr-2">
+                  Delete
+                </button>
               </li>
             </Link>
           </div>
