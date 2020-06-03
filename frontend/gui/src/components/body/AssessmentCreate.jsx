@@ -476,6 +476,7 @@ class AssessmentCreate extends Component {
           answerText: null,
           isEditingAssessmentTitle: true,
           isAssessmentFinished: true,
+          questionNumber: 0,
         },
         () => {
           if (this.state.isAssessmentFinished === true) {
@@ -548,6 +549,7 @@ class AssessmentCreate extends Component {
           this.setState({
             numberOfCorrectAnswers: 0,
             questionDescription: null,
+            questionDescriptionTyped: null,
             questionText: null,
             questionTextTyped: null,
             answersToCurrentQuestion: [],
