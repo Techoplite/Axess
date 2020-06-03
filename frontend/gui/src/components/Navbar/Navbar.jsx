@@ -8,7 +8,9 @@ class Navabar extends Component {
   render() {
     return (
       <Router>
-        <nav className="navbar navbar-light bg-light py-3 sticky-top">
+        <nav
+          className="navbar navbar-light bg-light py-3 sticky-top"
+          style={{ zIndex: 0 }}>
           <Link className="navbar-brand" to="/#">
             Axess
           </Link>
