@@ -40,7 +40,11 @@ class AssessmentCreate extends Component {
   }
 
   handleCreateNewAssessment() {
-    this.setState({ isAssessmentFinished: false });
+    this.setState({
+      isAssessmentFinished: false,
+      questions: [],
+      assessmentTitle: null,
+    });
     this.props.handleMessage("");
   }
 
