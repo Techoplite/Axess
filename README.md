@@ -12,7 +12,8 @@ The project is subdivided in two main directories: frontend (written in React), 
 
 
 # Preview
-![](Axess Gif.gif)
+![](Axess-Gif.gif)
+
 
 
 # Project State
