@@ -80,7 +80,9 @@ class AssessmentDetail extends Component {
   render() {
     return (
       <div>
-        <h3 className="py-2 display-4">{this.state.assessment.title}</h3>
+        <h3 className="py-2 display-4">
+          {this.state.assessment.title} - ID: {this.state.assessment.id}
+        </h3>
         <ul className="list-group">{this.getAssessmentQuestions()}</ul>
       </div>
     );

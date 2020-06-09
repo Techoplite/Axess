@@ -86,11 +86,11 @@ class AssessmentList extends Component {
               key={assessment.id}
               to={`assessment-detail/${assessment.id}`}>
               <li key={assessment.id} className="list-group-item">
-                {assessment.title}
+                {assessment.title} - ID: {assessment.id}
                 <button
                   onClick={this.handleDeleteAssessment}
                   type="submit"
-                  name={assessment.title}
+                  name={assessment.title} 
                   id="deleteAssessment"
                   className="btn btn-sm btn-danger float-right align-middle mt-n1 mr-2">
                   Delete
