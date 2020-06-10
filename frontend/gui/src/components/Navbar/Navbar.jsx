@@ -14,7 +14,7 @@ class Navabar extends Component {
           <Link className="navbar-brand" to="/#">
             Axess
           </Link>
-          <Navs />
+          <Navs role={this.props.role} />
           <Authentication />
         </nav>
       </Router>

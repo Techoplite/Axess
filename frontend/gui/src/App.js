@@ -10,7 +10,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: ''
+      message: '',
+      userRole: "Teacher"
     }
     this.handleMessage = this.handleMessage.bind(this)
   }
@@ -28,9 +29,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navabar />
+        <Navabar role={this.state.userRole}/>
         {this.state.message && <Message text={this.state.message} />}
-        <Body handleMessage={this.handleMessage} />
+        <Body handleMessage={this.handleMessage} role={this.state.userRole}/>
         <Footer />
       </div>
     );

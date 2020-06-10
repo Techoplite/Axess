@@ -21,12 +21,14 @@ class Nav extends Component {
     return (
       <Router>
         <li key={this.props.label} className="nav-item">
-          <Link
-            to={this.getLink()}
-            key={this.props.label}
-            className="nav-link active">
-            {this.props.label}
-          </Link>
+          {this.props.role === "Teacher" && (
+            <Link
+              to={this.getLink()}
+              key={this.props.label}
+              className="nav-link active">
+              {this.props.label}
+            </Link>
+          )}
         </li>
       </Router>
     );
