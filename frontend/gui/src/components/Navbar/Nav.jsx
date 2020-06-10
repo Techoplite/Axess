@@ -9,11 +9,29 @@ class Nav extends Component {
   }
 
   getLink() {
-    if (this.props.label === "Your Assessments") {
+    if (
+      this.props.role === "Teacher" &&
+      this.props.label === "Your Assessments"
+    ) {
       return "/assessment-list";
     }
-    if (this.props.label === "Create Assessment") {
+    if (
+      this.props.role === "Teacher" &&
+      this.props.label === "Create Assessment"
+    ) {
       return "/assessment-create";
+    }
+    if (
+      this.props.role === "Student" &&
+      this.props.label === "Find Assessment"
+    ) {
+      return "/find-assessment";
+    }
+    if (
+      this.props.role === "Student" &&
+      this.props.label === "Assessments Results"
+    ) {
+      return "/assessments-results";
     }
   }
 
@@ -22,6 +40,14 @@ class Nav extends Component {
       <Router>
         <li key={this.props.label} className="nav-item">
           {this.props.role === "Teacher" && (
+            <Link
+              to={this.getLink()}
+              key={this.props.label}
+              className="nav-link active">
+              {this.props.label}
+            </Link>
+          )}
+          {this.props.role === "Student" && (
             <Link
               to={this.getLink()}
               key={this.props.label}
