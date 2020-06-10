@@ -6,7 +6,7 @@ class Navs extends Component {
     super(props);
     this.state = {
       teacherLabels: ["Create Assessment", "Your Assessments"],
-      studentLabels: ["Find Assessment", "Assessments Results"],
+      studentLabels: ["Carry Out Assessment", "Assessments Results"],
     };
   }
 

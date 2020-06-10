@@ -31,7 +31,7 @@ class Body extends Component {
               exact
               component={AssessmentDetail}
             />
-            <Route path="/find-assessment">
+            <Route path="/carry-out-assessment">
               <FindAssessment handleMessage={this.props.handleMessage} />
             </Route>
           </Switch>

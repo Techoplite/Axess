@@ -23,9 +23,9 @@ class Nav extends Component {
     }
     if (
       this.props.role === "Student" &&
-      this.props.label === "Find Assessment"
+      this.props.label === "Carry Out Assessment"
     ) {
-      return "/find-assessment";
+      return "/carry-out-assessment";
     }
     if (
       this.props.role === "Student" &&
