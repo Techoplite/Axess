@@ -5,6 +5,7 @@ class FindAssessment extends Component {
     super(props);
     this.state = {
       assessment: null,
+      assessmentfound: false,
     };
     this.fetchAssessment = this.fetchAssessment.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -15,6 +16,7 @@ class FindAssessment extends Component {
   }
 
   async fetchAssessment() {
+    document.getElementById("assessmentId").value = "";
     this.props.handleMessage("");
     const id = parseInt(this.state.assessmentId);
     if (isNaN(id)) {
@@ -23,7 +25,8 @@ class FindAssessment extends Component {
       await fetch(`http://127.0.0.1:8000/api/assessments/${id}/`)
         .then(response => {
           if (response.ok) {
-            return response.json();
+            response.json();
+            this.setState({ assessmentfound: true });
           } else {
             this.props.handleMessage(
               `There is no assessment with Id ${id}. Please insert a valid Id.`
@@ -32,11 +35,10 @@ class FindAssessment extends Component {
         })
         .then(data => this.setState({ assessment: data }));
     }
-    return (document.getElementById("assessmentId").value = "");
   }
 
   render() {
-    return (
+    return !this.state.assessmentfound ? (
       <Fragment>
         <h1 className="mb-5">Find Assessment</h1>
         <form>
@@ -61,6 +63,8 @@ class FindAssessment extends Component {
           </button>
         </form>
       </Fragment>
+    ) : (
+      <h1>Assessment Found</h1>
     );
   }
 }
