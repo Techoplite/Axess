@@ -6,6 +6,7 @@ class FindAssessment extends Component {
     this.state = {
       assessment: null,
       assessmentfound: false,
+      assessmentTitle: "",
     };
     this.fetchAssessment = this.fetchAssessment.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -25,19 +26,25 @@ class FindAssessment extends Component {
       await fetch(`http://127.0.0.1:8000/api/assessments/${id}/`)
         .then(response => {
           if (response.ok) {
-            response.json();
             this.setState({ assessmentfound: true });
+            return response.json();
           } else {
             this.props.handleMessage(
               `There is no assessment with Id ${id}. Please insert a valid Id.`
             );
           }
         })
-        .then(data => this.setState({ assessment: data }));
+        .then(data =>
+          this.setState({
+            assessment: data,
+            assessmentTitle: data["title"],
+          })
+        );
     }
   }
 
   render() {
+    const { assessment } = this.state;
     return !this.state.assessmentfound ? (
       <Fragment>
         <h1 className="mb-5">Find Assessment</h1>
@@ -64,7 +71,7 @@ class FindAssessment extends Component {
         </form>
       </Fragment>
     ) : (
-      <h1>Assessment Found</h1>
+      <h1>{this.state.assessmentTitle}</h1>
     );
   }
 }
