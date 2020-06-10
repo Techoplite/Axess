@@ -15,14 +15,26 @@ class FindAssessment extends Component {
   }
 
   async fetchAssessment() {
+    this.props.handleMessage("");
     const id = parseInt(this.state.assessmentId);
-    try {
+    if (isNaN(id)) {
+      this.props.handleMessage("Assessment Id must be a number.");
+    } else {
       await fetch(`http://127.0.0.1:8000/api/assessments/${id}/`)
-        .then(response => response.json())
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            this.props.handleMessage(
+              `There is no assessment with Id ${id}. Please insert a valid Id.`
+            );
+          }
+        })
         .then(data => this.setState({ assessment: data }));
-    } catch (err) {
-      document.getElementById("assessmentId").innerHTML = err.message;
+      // .then(response => response.json())
+      // .then(data => this.setState({ assessment: data }));
     }
+    return (document.getElementById("assessmentId").value = "");
   }
 
   render() {
