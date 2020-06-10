@@ -31,8 +31,6 @@ class FindAssessment extends Component {
           }
         })
         .then(data => this.setState({ assessment: data }));
-      // .then(response => response.json())
-      // .then(data => this.setState({ assessment: data }));
     }
     return (document.getElementById("assessmentId").value = "");
   }
