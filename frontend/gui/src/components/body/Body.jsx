@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AssessmentList from "./AssessmentList";
 import AssessmentCreate from "./AssessmentCreate";
 import AssessmentDetail from "./AssessmentDetail";
+import FindAssessment from "./FindAssessment";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 class Body extends Component {
@@ -30,6 +31,9 @@ class Body extends Component {
               exact
               component={AssessmentDetail}
             />
+            <Route path="/find-assessment">
+              <FindAssessment handleMessage={this.props.handleMessage} />
+            </Route>
           </Switch>
         </div>
       </Router>
