@@ -7,6 +7,7 @@ class FindAssessment extends Component {
       assessment: null,
       assessmentfound: false,
       assessmentTitle: "",
+      currentQuestionNumber: 1,
     };
     this.fetchAssessment = this.fetchAssessment.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -41,8 +42,26 @@ class FindAssessment extends Component {
               assessmentTitle: data["title"],
             });
           }
-        }
-          
+        });
+      await fetch("http://127.0.0.1:8000/api/questions/")
+        .then(response => response.json())
+        .then(data =>
+          this.setState({
+            assessmentQuestions: data.filter(
+              question => question.assessment === this.state.assessment.id
+            ),
+          })
+        );
+      await fetch("http://127.0.0.1:8000/api/answers/")
+        .then(response => response.json())
+        .then(data =>
+          this.setState({
+            questionAnswers: [
+              this.state.assessmentQuestions.map(question =>
+                data.filter(answer => answer.question === question.id)
+              ),
+            ],
+          })
         );
     }
   }
@@ -74,7 +93,20 @@ class FindAssessment extends Component {
         </form>
       </Fragment>
     ) : (
-      <h1>{this.state.assessmentTitle}</h1>
+      <Fragment>
+        <h1 className="mb-5">{this.state.assessmentTitle}</h1>
+        <h5>
+          {this.state.assessmentQuestions &&
+            this.state.assessmentQuestions.map(question => (
+              <p className="d-inline mr-3" key={question.id}>
+                {question.number}
+              </p>
+            ))}
+        </h5>
+        <h5 className="mb-5">
+          Question number {this.state.currentQuestionNumber}
+        </h5>
+      </Fragment>
     );
   }
 }
