@@ -34,17 +34,20 @@ class FindAssessment extends Component {
             );
           }
         })
-        .then(data =>
-          this.setState({
-            assessment: data,
-            assessmentTitle: data["title"],
-          })
+        .then(data => {
+          if (data !== undefined) {
+            this.setState({
+              assessment: data,
+              assessmentTitle: data["title"],
+            });
+          }
+        }
+          
         );
     }
   }
 
   render() {
-    const { assessment } = this.state;
     return !this.state.assessmentfound ? (
       <Fragment>
         <h1 className="mb-5">Find Assessment</h1>
