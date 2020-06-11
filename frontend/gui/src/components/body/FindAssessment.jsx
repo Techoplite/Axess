@@ -11,6 +11,13 @@ class FindAssessment extends Component {
     };
     this.fetchAssessment = this.fetchAssessment.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleCurrentQuestionNumber = this.handleCurrentQuestionNumber.bind(
+      this
+    );
+  }
+
+  handleCurrentQuestionNumber(event) {
+    this.setState({ currentQuestionNumber: event.target.id });
   }
 
   handleChange(event) {
@@ -99,15 +106,20 @@ class FindAssessment extends Component {
     ) : (
       <Fragment>
         <h1 className="mb-5">{this.state.assessmentTitle}</h1>
-        <h5>
+        <h5 className="text-left">
+          <p className="d-inline">Questions:</p>
           {this.state.assessmentQuestions &&
             this.state.assessmentQuestions.map(question => (
-              <p className="d-inline mr-3" key={question.id}>
+              <button
+                onClick={this.handleCurrentQuestionNumber}
+                className="d-inline mr-1 mb-1 btn"
+                key={question.id}
+                id={question.number}>
                 {question.number}
-              </p>
+              </button>
             ))}
         </h5>
-        <h5 className="mb-5">
+        <h5 className="mb-5 mt-5">
           Question number {this.state.currentQuestionNumber}
         </h5>
       </Fragment>
