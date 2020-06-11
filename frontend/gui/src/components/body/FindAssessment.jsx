@@ -11,13 +11,30 @@ class FindAssessment extends Component {
     };
     this.fetchAssessment = this.fetchAssessment.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
     this.handleCurrentQuestionNumber = this.handleCurrentQuestionNumber.bind(
       this
     );
   }
 
+  setCurrentQuestion() {
+    console.log(this.state.currentQuestionNumber);
+    if (this.state.assessmentQuestions) {
+      const currentQuestion = this.state.assessmentQuestions.find(
+        question => question.number === this.state.currentQuestionNumber
+      );
+      console.log(currentQuestion);
+      this.setState({ currentQuestion: currentQuestion });
+    }
+  }
+
   handleCurrentQuestionNumber(event) {
-    this.setState({ currentQuestionNumber: event.target.id });
+    this.setState(
+      {
+        currentQuestionNumber: parseInt(event.target.id),
+      },
+      () => this.setCurrentQuestion()
+    );
   }
 
   handleChange(event) {
@@ -65,13 +82,16 @@ class FindAssessment extends Component {
         .then(response => response.json())
         .then(data => {
           if (this.state.assessmentQuestions) {
-            this.setState({
-              questionAnswers: [
-                this.state.assessmentQuestions.map(question =>
-                  data.filter(answer => answer.question === question.id)
-                ),
-              ],
-            });
+            this.setState(
+              {
+                questionAnswers: [
+                  this.state.assessmentQuestions.map(question =>
+                    data.filter(answer => answer.question === question.id)
+                  ),
+                ],
+              },
+              () => this.setCurrentQuestion()
+            );
           }
         });
     }
@@ -122,6 +142,7 @@ class FindAssessment extends Component {
         <h5 className="mb-5 mt-5">
           Question number {this.state.currentQuestionNumber}
         </h5>
+        <h3>{}</h3>
       </Fragment>
     );
   }
