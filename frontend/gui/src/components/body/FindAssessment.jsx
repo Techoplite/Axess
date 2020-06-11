@@ -45,24 +45,28 @@ class FindAssessment extends Component {
         });
       await fetch("http://127.0.0.1:8000/api/questions/")
         .then(response => response.json())
-        .then(data =>
-          this.setState({
-            assessmentQuestions: data.filter(
-              question => question.assessment === this.state.assessment.id
-            ),
-          })
-        );
+        .then(data => {
+          if (this.state.assessment) {
+            this.setState({
+              assessmentQuestions: data.filter(
+                question => question.assessment === this.state.assessment.id
+              ),
+            });
+          }
+        });
       await fetch("http://127.0.0.1:8000/api/answers/")
         .then(response => response.json())
-        .then(data =>
-          this.setState({
-            questionAnswers: [
-              this.state.assessmentQuestions.map(question =>
-                data.filter(answer => answer.question === question.id)
-              ),
-            ],
-          })
-        );
+        .then(data => {
+          if (this.state.assessmentQuestions) {
+            this.setState({
+              questionAnswers: [
+                this.state.assessmentQuestions.map(question =>
+                  data.filter(answer => answer.question === question.id)
+                ),
+              ],
+            });
+          }
+        });
     }
   }
 
