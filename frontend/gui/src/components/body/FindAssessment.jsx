@@ -12,19 +12,39 @@ class FindAssessment extends Component {
     this.fetchAssessment = this.fetchAssessment.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
+    this.handleRadioOnChange = this.handleRadioOnChange.bind(this);
     this.handleCurrentQuestionNumber = this.handleCurrentQuestionNumber.bind(
       this
     );
   }
 
+  setCurrentAnswers() {
+    let currentAnswers = [];
+    this.state.assessmentAnswers.map(assessmentAnswersArrays =>
+      assessmentAnswersArrays.map(questionAnswers =>
+        questionAnswers.map(
+          answer =>
+            answer.question === this.state.currentQuestion.id &&
+            (currentAnswers = [...currentAnswers, answer.answer]) &&
+            console.log("answer: ", answer.answer)
+        )
+      )
+    );
+    this.setState({ currentAnswers: currentAnswers });
+  }
+
+  handleRadioOnChange(event) {
+    this.setState({ radioChecked: event.target.name });
+  }
+
   setCurrentQuestion() {
-    console.log(this.state.currentQuestionNumber);
     if (this.state.assessmentQuestions) {
       const currentQuestion = this.state.assessmentQuestions.find(
         question => question.number === this.state.currentQuestionNumber
       );
-      console.log(currentQuestion);
-      this.setState({ currentQuestion: currentQuestion });
+      this.setState({ currentQuestion: currentQuestion }, () =>
+        this.setCurrentAnswers()
+      );
     }
   }
 
@@ -84,7 +104,7 @@ class FindAssessment extends Component {
           if (this.state.assessmentQuestions) {
             this.setState(
               {
-                questionAnswers: [
+                assessmentAnswers: [
                   this.state.assessmentQuestions.map(question =>
                     data.filter(answer => answer.question === question.id)
                   ),
@@ -139,22 +159,42 @@ class FindAssessment extends Component {
               </button>
             ))}
         </h5>
-        <form className="border p-2 py-4 rounded">
-          <h5 className="mb-5">
-            Question number {this.state.currentQuestionNumber}
+        <form className="border p-2 py-4 rounded overflow-hidden">
+          <h5 className="mb-5 text-left col-12">
+            Question {this.state.currentQuestionNumber}
           </h5>
           {this.state.currentQuestion && (
             <Fragment>
               <h6 className="mb-3">{this.state.currentQuestion.description}</h6>
               <h6>{this.state.currentQuestion.question}</h6>
-              <select className="select-answer mt-5 p-1">
-                <option selected>Please select an answer</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
+              <h5 className="mt-5 mb-4 text-left col-12">Answers</h5>
+              <div className="text-left ml-5 col-12">
+                {this.state.currentAnswers &&
+                  this.state.currentAnswers.map(answer => (
+                    <div
+                      className="custom-control custom-radio mt-3"
+                      key={answer}>
+                      <input
+                        checked={this.state.radioChecked === answer}
+                        onChange={this.handleRadioOnChange}
+                        type="radio"
+                        id={answer}
+                        name={answer}
+                        className="custom-control-input"
+                      />
+                      <label className="custom-control-label" htmlFor={answer}>
+                        {answer}
+                      </label>
+                    </div>
+                  ))}
+              </div>
             </Fragment>
           )}
+          <button
+            className="d-block btn btn-success mt-5 float-right mr-3"
+            type="submit">
+            Submit
+          </button>
         </form>
       </Fragment>
     );
