@@ -13,11 +13,11 @@ class Navs extends Component {
   render() {
     return (
       <ul className="text-responsive nav mx-auto">
-        {this.props.role == "Teacher" &&
+        {this.props.role === "Teacher" &&
           this.state.teacherLabels.map(label => (
             <Nav key={label} label={label} role={this.props.role} />
           ))}
-        {this.props.role == "Student" &&
+        {this.props.role === "Student" &&
           this.state.studentLabels.map(label => (
             <Nav key={label} label={label} role={this.props.role} />
           ))}

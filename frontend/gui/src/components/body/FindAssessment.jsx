@@ -139,10 +139,23 @@ class FindAssessment extends Component {
               </button>
             ))}
         </h5>
-        <h5 className="mb-5 mt-5">
-          Question number {this.state.currentQuestionNumber}
-        </h5>
-        <h3>{}</h3>
+        <form className="border p-2 py-4 rounded">
+          <h5 className="mb-5">
+            Question number {this.state.currentQuestionNumber}
+          </h5>
+          {this.state.currentQuestion && (
+            <Fragment>
+              <h6 className="mb-3">{this.state.currentQuestion.description}</h6>
+              <h6>{this.state.currentQuestion.question}</h6>
+              <select className="select-answer mt-5 p-1">
+                <option selected>Please select an answer</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </Fragment>
+          )}
+        </form>
       </Fragment>
     );
   }
