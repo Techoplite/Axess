@@ -20,7 +20,7 @@ An assessment is a collection of questions (at least one), the relative availabl
 
 ![](create-assessment-link-clicked.gif)
 
-2. Give the assessment a title.
+2. Give the assessment a title and click the `submit` button.
 
 ![](assessment-title.gif)
 
