@@ -45,22 +45,22 @@ When creating a question, the description field is optional. In fact, if no desc
 
 ![](no-description.gif)
 
-### Trying to create a question with no answers
+#### Trying to create a question with no answers
 If the user tries to submit an empty answer, the answer is not created and the user will be informed about the problem by a small text beneath the input field.
 
 ![](no-answer.gif)
 
-### Trying to finish a question with only one answer
+#### Trying to finish a question with only one answer
 If the user tries to finish a question with only one available answer, the question will not be created and the user will be informed of the problem by a message bar on the top of the page.
 
 ![](finish-whit-one-answer.gif)
 
-### Trying to finish a question with no correct answer.
+#### Trying to finish a question with no correct answer.
 If the user tries to finish a question with no correct answer, the question will not be created and the user will be informed of the problem by a message bar on the top of the page.
 
 ![](no-correct-answer.gif)
 
-### Trying to finish a question with too many correct answer
+#### Trying to finish a question with too many correct answer
 If a user tries to finish a question with more than one correct answer, the question will not be created and the user will be informed of the problem by a message bar on the top of the page, giving a hint on how many answers he/she should delete.
 
 
@@ -74,6 +74,7 @@ Once only one correct answer is left, the question will be created.
 
 ## View all the assessment created by the user
 A teacher can view and delate any assessment he/she has created.
+
 (N.B. At the moment the authentication system has not been implemented yet so all the assessments are visible, independently by who has created them).
 
 1. Click on the `your assessments` button inside the navbar at the top of the page, and the assessments list will be displayed.
