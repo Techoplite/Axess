@@ -13,8 +13,12 @@ The project is subdivided in two main directories: frontend (written in React), 
 
 # Teacher Side Use Cases
 1. In order to create an assessment a techer has to click on the `create assessment` link inside the navbar at the top of the page.
+
 ![](create-assessment-link-clicked.gif)
 
+2. Give the assessment a title.
+
+![](assessment-title.gif)
 
 # Preview
 ![](Axess-Gif.gif)
