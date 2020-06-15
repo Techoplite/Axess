@@ -32,6 +32,10 @@ An assessment is a collection of questions (at least one), the relative availabl
 
 ![](answer.gif)
 
+5. You can add other questions and answers. Once you are done, click on the `finish assessment button` and the assessment will be added to the database. Also, the user will be displayed an assessment summary.
+
+![](finish-assessment.gif)
+
 
 
 # Project State
