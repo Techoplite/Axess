@@ -32,10 +32,64 @@ An assessment is a collection of questions (at least one), the relative availabl
 
 ![](answer.gif)
 
-5. You can add other questions and answers. Once you are done, click on the `finish assessment button` and the assessment will be added to the database. Also, the user will be displayed an assessment summary and a greee `create new assessment` button wich redirect the user to the assessment title form.
+5. You can add other questions and answers. Once you are done, click on the `finish assessment button` and the assessment will be added to the database. Also, the user will be displayed an assessment summary and a greee `create new assessment` button wich redirect the user to the assessment title form. 
+
+N.B. Next to the assessment title in the summary, the assessment ID is displaied. This is can be given by the teacher to any student required to carry out the assessment. In fact, once a student has requstered an student account, he/she will be allowed to find an assessment by typing the ID in the search box (this functionality is provided on the "student side" of the website).
 
 ![](finish-assessment.gif)
 
+## Edge cases
+
+#### No description given to a question
+When creating a question, the description field is optional. In fact, if no description is given, the question is still being added to the assessment.
+
+![](no-description.gif)
+
+### Trying to create a question with no answers
+If the user tries to submit an empty answer, the answer is not created and the user will be informed about the problem by a small text beneath the input field.
+
+![](no-answer.gif)
+
+### Trying to finish a question with only one answer
+If the user tries to finish a question with only one available answer, the question will not be created and the user will be informed of the problem by a message bar on the top of the page.
+
+![](finish-whit-one-answer.gif)
+
+### Trying to finish a question with no correct answer.
+If the user tries to finish a question with no correct answer, the question will not be created and the user will be informed of the problem by a message bar on the top of the page.
+
+![](no-correct-answer.gif)
+
+### Trying to finish a question with too many correct answer
+If a user tries to finish a question with more than one correct answer, the question will not be created and the user will be informed of the problem by a message bar on the top of the page, giving a hint on how many answers he/she should delete.
+
+
+![](too-many-correct-answers.gif)
+
+An answer can be deleted from the answers list by clicking on the red `delete` button.
+Once only one correct answer is left, the question will be created.
+
+![](delete-too-many-correct-answers.gif)
+
+
+## View all the assessment created by the user
+A teacher can view and delate any assessment he/she has created.
+(N.B. At the moment the authentication system has not been implemented yet so all the assessments are visible, independently by who has created them).
+
+1. Click on the `your assessments` button inside the navbar at the top of the page, and the assessments list will be displayed.
+
+![](click-your-assessments.gif)
+
+2. To view an assessment details, simply click on the assessment name.
+
+![](assessment-details.gif)
+
+## Delete an assessment from the list
+An assessment can be easily deleted by clicking the `delete` button next to the assessment name inside the list.
+
+![](assessment-delete.gif)
+
+![](delete-assessment.gif)
 
 
 # Project State
