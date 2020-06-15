@@ -16,7 +16,7 @@ The project is subdivided in two main directories: frontend (written in React), 
 ## Create Assessment
 An assessment is a collection of questions (at least one), the relative available answers (at least two), and only one correct answer to a given question.
 
-1. In order to create an assessment a techer has to click on the `create assessment` link inside the navbar at the top of the page.
+1. In order to create an assessment a teacher has to click on the `create assessment` link inside the navbar at the top of the page.
 
 ![](create-assessment-link-clicked.gif)
 
@@ -28,13 +28,13 @@ An assessment is a collection of questions (at least one), the relative availabl
 
 ![](question.gif)
 
-4. Add at least two answers, one of wich must be the correct one. The correct answer can be easily selected by ticking the `is correct answer` checkbox underneath the answer input field. Once all the answers have been created, click on the `create new question` button.
+4. Add at least two answers, one of wich must be the correct one. The correct answer can be easily selected by ticking the `this is correct answer` checkbox underneath the answer input field. Once all the answers have been created, click on the red `create new question` button.
 
 ![](answer.gif)
 
-5. You can add other questions and answers. Once you are done, click on the `finish assessment button` and the assessment will be added to the database. Also, the user will be displayed an assessment summary and a greee `create new assessment` button wich redirect the user to the assessment title form. 
+5. You can add additional questions and answers. Once you are done, click on the red `finish assessment button` and the assessment will be added to the database. Eventually, the user will be displayed an assessment summary and a green `create new assessment` button wich redirects the user to the assessment title form. 
 
-N.B. Next to the assessment title in the summary, the assessment ID is displaied. This is can be given by the teacher to any student required to carry out the assessment. In fact, once a student has requstered an student account, he/she will be allowed to find an assessment by typing the ID in the search box (this functionality is provided on the "student side" of the website).
+N.B. Next to the assessment title in the summary, the assessment ID is displaied. This can be given by the teacher to any student required to carry out the assessment. In fact, once a student has registered on the website with a student account, he/she will be allowed to find an assessment by typing the ID in the search box (this functionality is provided on the "student side" of the website).
 
 ![](finish-assessment.gif)
 
@@ -94,7 +94,7 @@ An assessment can be easily deleted by clicking the `delete` button next to the 
 
 
 # Project State
-At the moment, the Teacher side of the project has been implemented through a first iteration, giving a first prototype of the final result. The next step will be to implement the Student side, and finally an authentication system.
+At the current stage, the Teacher side of the project has been implemented through a first iteration, giving an initial prototype of the final result. The next step will be to implement the Student side, and finally an authentication system.
 
 
 # Installation
