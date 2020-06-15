@@ -28,6 +28,10 @@ An assessment is a collection of questions (at least one), the relative availabl
 
 ![](question.gif)
 
+4. Add at least two answers, one of wich must be the correct one. The correct answer can be easily selected by ticking the `is correct answer` checkbox underneath the answer input field. Once all the answers have been created, click on the `create new answer` button.
+
+![](answer.gif)
+
 
 
 # Project State
