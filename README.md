@@ -11,6 +11,11 @@ As a "Teacher", a person shoul be able to create assessments and review all the 
 The project is subdivided in two main directories: frontend (written in React), and backend (written in Django).
 
 
+# Teacher Side Use Cases
+1. In order to create an assessment a techer has to click on the `create assessment` link inside the navbar at the top of the page.
+![](create-assessment-link-clicked.gif)
+
+
 # Preview
 ![](Axess-Gif.gif)
 
