@@ -72,7 +72,7 @@ Once only one correct answer is left, the question will be created.
 ![](delete-too-many-correct-answers.gif)
 
 
-## View all the assessment created by the user
+## View all the assessments created by the user
 A teacher can view and delate any assessment he/she has created.
 
 (N.B. At the moment the authentication system has not been implemented yet so all the assessments are visible, independently by who has created them).
