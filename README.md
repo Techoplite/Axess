@@ -24,8 +24,9 @@ An assessment is a collection of questions (at least one), the relative availabl
 
 ![](assessment-title.gif)
 
-# Preview
-![](Axess-Gif.gif)
+3. Now add a question and, if needed, a short description.
+
+![](question.gif)
 
 
 
