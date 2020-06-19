@@ -12,6 +12,7 @@ class FindAssessment extends Component {
     };
     this.fetchAssessment = this.fetchAssessment.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.setCorrectAnswers = this.setCorrectAnswers.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
     this.handleSubmitAnswer = this.handleSubmitAnswer.bind(this);
     this.handleRadioOnChange = this.handleRadioOnChange.bind(this);
@@ -67,7 +68,24 @@ class FindAssessment extends Component {
         )
       )
     );
-    this.setState({ currentAnswers: currentAnswers });
+    this.setState({ currentAnswers: currentAnswers }, () =>
+      this.setCorrectAnswers()
+    );
+  }
+
+  setCorrectAnswers() {
+    let correctAnswers = [];
+    this.state.assessmentAnswers.map(answersArrays =>
+      answersArrays.map(answersArray =>
+        answersArray.map(
+          answer =>
+            answer.is_correct_answer &&
+            (correctAnswers = [...correctAnswers, answer.answer])
+        )
+      )
+    );
+    this.setState({ correctAnswers: correctAnswers });
+    // console.log("correctAnswers: ", correctAnswers);
   }
 
   handleRadioOnChange(event) {
