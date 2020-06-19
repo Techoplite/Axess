@@ -11,13 +11,90 @@ As a "Teacher", a person shoul be able to create assessments and review all the 
 The project is subdivided in two main directories: frontend (written in React), and backend (written in Django).
 
 
-# Preview
-![](Axess-Gif.gif)
+# Teacher Side Use Cases
 
+## Create Assessment
+An assessment is a collection of questions (at least one), the relative available answers (at least two), and only one correct answer to a given question.
+
+1. In order to create an assessment a teacher has to click on the `create assessment` link inside the navbar at the top of the page.
+
+![](create-assessment-link-clicked.gif)
+
+2. Give the assessment a title and click the `submit` button.
+
+![](assessment-title.gif)
+
+3. Now add a question and, if needed, a short description.
+
+![](question.gif)
+
+4. Add at least two answers, one of wich must be the correct one. The correct answer can be easily selected by ticking the `this is correct answer` checkbox underneath the answer input field. Once all the answers have been created, click on the red `create new question` button.
+
+![](answer.gif)
+
+5. You can add additional questions and answers. Once you are done, click on the red `finish assessment button` and the assessment will be added to the database. Eventually, the user will be displayed an assessment summary and a green `create new assessment` button wich redirects the user to the assessment title form. 
+
+N.B. Next to the assessment title in the summary, the assessment ID is displaied. This can be given by the teacher to any student required to carry out the assessment. In fact, once a student has registered on the website with a student account, he/she will be allowed to find an assessment by typing the ID in the search box (this functionality is provided on the "student side" of the website).
+
+![](finish-assessment.gif)
+
+## Edge cases
+
+#### No description given to a question
+When creating a question, the description field is optional. In fact, if no description is given, the question is still being added to the assessment.
+
+![](no-description.gif)
+
+#### Trying to create a question with no answers
+If the user tries to submit an empty answer, the answer is not created and the user will be informed about the problem by a small text beneath the input field.
+
+![](no-answer.gif)
+
+#### Trying to finish a question with only one answer
+If the user tries to finish a question with only one available answer, the question will not be created and the user will be informed of the problem by a message bar on the top of the page.
+
+![](finish-whit-one-answer.gif)
+
+#### Trying to finish a question with no correct answer.
+If the user tries to finish a question with no correct answer, the question will not be created and the user will be informed of the problem by a message bar on the top of the page.
+
+![](no-correct-answer.gif)
+
+#### Trying to finish a question with too many correct answer
+If a user tries to finish a question with more than one correct answer, the question will not be created and the user will be informed of the problem by a message bar on the top of the page, giving a hint on how many answers he/she should delete.
+
+
+![](too-many-correct-answers.gif)
+
+An answer can be deleted from the answers list by clicking on the red `delete` button.
+Once only one correct answer is left, the question will be created.
+
+![](delete-too-many-correct-answers.gif)
+
+
+## View all the assessments created by the user
+A teacher can view and delate any assessment he/she has created.
+
+(N.B. At the moment the authentication system has not been implemented yet so all the assessments are visible, independently by who has created them).
+
+1. Click on the `your assessments` button inside the navbar at the top of the page, and the assessments list will be displayed.
+
+![](click-your-assessments.gif)
+
+2. To view an assessment details, simply click on the assessment name.
+
+![](assessment-details.gif)
+
+## Delete an assessment from the list
+An assessment can be easily deleted by clicking the `delete` button next to the assessment name inside the list.
+
+![](assessment-delete.gif)
+
+![](delete-assessment.gif)
 
 
 # Project State
-At the moment, the Teacher side of the project has been implemented through a first iteration, giving a first prototype of the final result. The next step will be to implement the Student side, and finally an authentication system.
+At the current stage, the Teacher side of the project has been implemented through a first iteration, giving an initial prototype of the final result. The next step will be to implement the Student side, and finally an authentication system.
 
 
 # Installation
