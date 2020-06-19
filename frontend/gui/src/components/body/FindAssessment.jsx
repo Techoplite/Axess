@@ -8,14 +8,52 @@ class FindAssessment extends Component {
       assessmentfound: false,
       assessmentTitle: "",
       currentQuestionNumber: 1,
+      userAnswers: [],
     };
     this.fetchAssessment = this.fetchAssessment.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.setCurrentQuestion = this.setCurrentQuestion.bind(this);
+    this.handleSubmitAnswer = this.handleSubmitAnswer.bind(this);
     this.handleRadioOnChange = this.handleRadioOnChange.bind(this);
+    this.initializeUserAnswers = this.initializeUserAnswers.bind(this);
     this.handleCurrentQuestionNumber = this.handleCurrentQuestionNumber.bind(
       this
     );
+  }
+
+  initializeUserAnswers() {
+    let answers = [];
+    this.state.assessmentQuestions.map(
+      question => (answers = [...answers, null])
+    );
+    this.setState({ userAnswers: answers });
+  }
+
+  handleSubmitAnswer(event) {
+    event.preventDefault();
+    const answersCopy = this.state.userAnswers.slice();
+    const index = this.state.currentQuestionNumber - 1;
+    answersCopy[index] = this.state.radioChecked;
+
+    if (
+      this.state.currentQuestionNumber === this.state.assessmentQuestions.length
+    ) {
+      this.setState(
+        {
+          userAnswers: answersCopy,
+          currentQuestionNumber: 1,
+        },
+        () => this.setCurrentQuestion()
+      );
+    } else {
+      this.setState(
+        {
+          userAnswers: answersCopy,
+          currentQuestionNumber: ++this.state.currentQuestionNumber,
+        },
+        () => this.setCurrentQuestion()
+      );
+    }
   }
 
   setCurrentAnswers() {
@@ -25,8 +63,7 @@ class FindAssessment extends Component {
         questionAnswers.map(
           answer =>
             answer.question === this.state.currentQuestion.id &&
-            (currentAnswers = [...currentAnswers, answer.answer]) &&
-            console.log("answer: ", answer.answer)
+            (currentAnswers = [...currentAnswers, answer.answer])
         )
       )
     );
@@ -91,11 +128,14 @@ class FindAssessment extends Component {
         .then(response => response.json())
         .then(data => {
           if (this.state.assessment) {
-            this.setState({
-              assessmentQuestions: data.filter(
-                question => question.assessment === this.state.assessment.id
-              ),
-            });
+            this.setState(
+              {
+                assessmentQuestions: data.filter(
+                  question => question.assessment === this.state.assessment.id
+                ),
+              },
+              () => this.initializeUserAnswers()
+            );
           }
         });
       await fetch("http://127.0.0.1:8000/api/answers/")
@@ -190,11 +230,12 @@ class FindAssessment extends Component {
               </div>
             </Fragment>
           )}
-          <button
+          <input
+            type="submit"
+            value="Submit"
+            onClick={this.handleSubmitAnswer}
             className="d-block btn btn-success mt-5 float-right mr-3"
-            type="submit">
-            Submit
-          </button>
+          />
         </form>
       </Fragment>
     );

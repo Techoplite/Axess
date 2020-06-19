@@ -28,7 +28,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App bg-light">
         <Navabar role={this.state.userRole} />
         {this.state.message && <Message text={this.state.message} />}
         <Body handleMessage={this.handleMessage} role={this.state.userRole} />

@@ -69,7 +69,7 @@ class AssessmentCreate extends Component {
     if (this.state.isAssessmentFinished === true) {
       return (
         <Fragment>
-          <h1 className="mb-5">Assessment review</h1>
+          <h1 className="mb-5">Assessment Summary</h1>
           <ul className="list-group">
             <h4 className="display-4 mb-4">{this.state.assessmentTitle}</h4>
             {this.state.questions.map(question => (
@@ -163,7 +163,7 @@ class AssessmentCreate extends Component {
             Create an Available Answer to Question {this.state.questionNumber} "
             {this.state.questionTextTyped}"
           </h5>
-          <form id="answerForm">
+          <form id="answerForm" autocomplete="off">
             <div className="form-group">
               <label className="float-left" htmlFor="answerTextTyped">
                 Answer
@@ -261,7 +261,7 @@ class AssessmentCreate extends Component {
           <h5 className="py-2 mb-5">
             Create a Question in Assessment "{this.state.assessmentTitle}"
           </h5>
-          <form>
+          <form autocomplete="off">
             <div className="form-group">
               <label className="float-left" htmlFor="questionDescriptionTyped">
                 Description
@@ -335,7 +335,10 @@ class AssessmentCreate extends Component {
       return (
         <Fragment>
           <h3 className="py-2 mb-5">Create Assessment</h3>
-          <form id="assessmentTitleForm" onSubmit={this.handleSubmit}>
+          <form
+            id="assessmentTitleForm"
+            onSubmit={this.handleSubmit}
+            autocomplete="off">
             <div className="form-group">
               <label className="float-left" htmlFor="assessmentTitle">
                 Assessment Title
