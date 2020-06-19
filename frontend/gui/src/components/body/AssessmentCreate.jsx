@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import Message from "../MessageBar.jsx/Message";
 
 class AssessmentCreate extends Component {
   constructor(props) {
@@ -56,12 +55,12 @@ class AssessmentCreate extends Component {
 
   incrementCorrectAnswers() {
     this.setState({
-      numberOfCorrectAnswers: ++this.state.numberOfCorrectAnswers,
+      numberOfCorrectAnswers: this.state.numberOfCorrectAnswers + 1,
     });
   }
   decrementCorrectAnswers() {
     this.setState({
-      numberOfCorrectAnswers: --this.state.numberOfCorrectAnswers,
+      numberOfCorrectAnswers: this.state.numberOfCorrectAnswers - 1,
     });
   }
 
@@ -406,7 +405,7 @@ class AssessmentCreate extends Component {
       this.setState(
         {
           isAddingAnswer: true,
-          questionNumber: ++this.state.questionNumber,
+          questionNumber: this.state.questionNumber + 1,
           questionDescription: this.state.questionDescriptionTyped,
           questionText: this.state.questionTextTyped,
         },
