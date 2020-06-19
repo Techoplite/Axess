@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       message: '',
-      userRole: "Student"
+      userRole: "Teacher"
     }
     this.handleMessage = this.handleMessage.bind(this)
   }
