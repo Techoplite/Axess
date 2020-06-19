@@ -49,7 +49,7 @@ class FindAssessment extends Component {
       this.setState(
         {
           userAnswers: answersCopy,
-          currentQuestionNumber: ++this.state.currentQuestionNumber,
+          currentQuestionNumber: this.state.currentQuestionNumber + 1,
         },
         () => this.setCurrentQuestion()
       );
