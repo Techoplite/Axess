@@ -9,6 +9,7 @@ class FindAssessment extends Component {
       assessmentTitle: "",
       currentQuestionNumber: 1,
       userAnswers: [],
+      isFinished: false,
     };
     this.fetchAssessment = this.fetchAssessment.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -19,10 +20,20 @@ class FindAssessment extends Component {
     this.initializeUserAnswers = this.initializeUserAnswers.bind(this);
     this.handleFinishAssessment = this.handleFinishAssessment.bind(this);
     this.setAllQuestionAnswered = this.setAllQuestionAnswered.bind(this);
+    this.calculateResult = this.calculateResult.bind(this);
     this.setCurrentUserAnswer = this.setCurrentUserAnswer.bind(this);
     this.handleCurrentQuestionNumber = this.handleCurrentQuestionNumber.bind(
       this
     );
+  }
+
+  calculateResult() {
+    const result = Math.floor(
+      (this.state.correctAnswersNumber * 100) /
+        this.state.assessmentQuestions.length
+    );
+
+    this.setState({ result: result });
   }
 
   setCurrentUserAnswer() {
@@ -63,7 +74,13 @@ class FindAssessment extends Component {
           correctAnswers++
       )
     );
-    console.log("correct answers: ", correctAnswers);
+    this.setState(
+      {
+        isFinished: true,
+        correctAnswersNumber: correctAnswers,
+      },
+      () => this.calculateResult()
+    );
   }
 
   initializeUserAnswers() {
@@ -234,95 +251,114 @@ class FindAssessment extends Component {
   }
 
   render() {
-    return !this.state.assessmentfound ? (
-      <Fragment>
-        <h1 className="mb-5">Find Assessment</h1>
-        <form>
-          <div className="form-group">
-            <label htmlFor="assessmentId" className=" float-left">
-              Assessment Id
-            </label>
-            <input
-              value={this.state.value}
-              onChange={this.handleChange}
-              type="search"
-              className="form-control"
-              id="assessmentId"
-              placeholder="Enter an assessment Id."
-            />
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary float-right"
-            onClick={this.fetchAssessment}>
-            Search
-          </button>
-        </form>
-      </Fragment>
-    ) : (
-      <Fragment>
-        <h1 className="mb-5">{this.state.assessmentTitle}</h1>
-        <h5 className="text-left">
-          <p className="d-inline">Questions:</p>
-          {this.state.assessmentQuestions &&
-            this.state.assessmentQuestions.map(question => (
-              <button
-                onClick={this.handleCurrentQuestionNumber}
-                className="d-inline mr-1 mb-1 btn"
-                key={question.id}
-                id={question.number}>
-                {question.number}
-              </button>
-            ))}
-        </h5>
-        <form className="border p-2 py-4 rounded overflow-hidden">
-          <h5 className="mb-5 text-left col-12">
-            Question {this.state.currentQuestionNumber}
+    if (!this.state.assessmentfound) {
+      return (
+        <Fragment>
+          <h1 className="mb-5">Find Assessment</h1>
+          <form>
+            <div className="form-group">
+              <label htmlFor="assessmentId" className=" float-left">
+                Assessment Id
+              </label>
+              <input
+                value={this.state.value}
+                onChange={this.handleChange}
+                type="search"
+                className="form-control"
+                id="assessmentId"
+                placeholder="Enter an assessment Id."
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary float-right"
+              onClick={this.fetchAssessment}>
+              Search
+            </button>
+          </form>
+        </Fragment>
+      );
+    } else if (!this.state.isFinished) {
+      return (
+        <Fragment>
+          <h1 className="mb-5">{this.state.assessmentTitle}</h1>
+          <h5 className="text-left">
+            <p className="d-inline">Questions:</p>
+            {this.state.assessmentQuestions &&
+              this.state.assessmentQuestions.map(question => (
+                <button
+                  onClick={this.handleCurrentQuestionNumber}
+                  className="d-inline mr-1 mb-1 btn"
+                  key={question.id}
+                  id={question.number}>
+                  {question.number}
+                </button>
+              ))}
           </h5>
-          {this.state.currentQuestion && (
-            <Fragment>
-              <h6 className="mb-3">{this.state.currentQuestion.description}</h6>
-              <h6>{this.state.currentQuestion.question}</h6>
-              <h5 className="mt-5 mb-4 text-left col-12">Answers</h5>
-              <div className="text-left ml-5 col-12">
-                {this.state.currentAvailableAnswers &&
-                  this.state.currentAvailableAnswers.map(answer => (
-                    <div
-                      className="custom-control custom-radio mt-3"
-                      key={answer}>
-                      <input
-                        checked={this.state.radioChecked === answer}
-                        onChange={this.handleRadioOnChange}
-                        type="radio"
-                        id={answer}
-                        name={answer}
-                        className="custom-control-input"
-                      />
-                      <label className="custom-control-label" htmlFor={answer}>
-                        {answer}
-                      </label>
-                    </div>
-                  ))}
-              </div>
-            </Fragment>
-          )}
-          <input
-            type="submit"
-            value="Submit"
-            onClick={this.handleSubmitAnswer}
-            className="d-block btn btn-success mt-5 float-right mr-3"
-          />
-          {this.state.allQuestionsAnswered === true && (
+          <form className="border p-2 py-4 rounded overflow-hidden">
+            <h5 className="mb-5 text-left col-12">
+              Question {this.state.currentQuestionNumber}
+            </h5>
+            {this.state.currentQuestion && (
+              <Fragment>
+                <h6 className="mb-3">
+                  {this.state.currentQuestion.description}
+                </h6>
+                <h6>{this.state.currentQuestion.question}</h6>
+                <h5 className="mt-5 mb-4 text-left col-12">Answers</h5>
+                <div className="text-left ml-5 col-12">
+                  {this.state.currentAvailableAnswers &&
+                    this.state.currentAvailableAnswers.map(answer => (
+                      <div
+                        className="custom-control custom-radio mt-3"
+                        key={answer}>
+                        <input
+                          checked={this.state.radioChecked === answer}
+                          onChange={this.handleRadioOnChange}
+                          type="radio"
+                          id={answer}
+                          name={answer}
+                          className="custom-control-input"
+                        />
+                        <label
+                          className="custom-control-label"
+                          htmlFor={answer}>
+                          {answer}
+                        </label>
+                      </div>
+                    ))}
+                </div>
+              </Fragment>
+            )}
             <input
               type="submit"
-              value="Finish Assessment"
-              onClick={this.handleFinishAssessment}
-              className="d-block btn btn-danger mt-5 float-right mr-3"
+              value="Submit"
+              onClick={this.handleSubmitAnswer}
+              className="d-block btn btn-success mt-5 float-right mr-3"
             />
-          )}
-        </form>
-      </Fragment>
-    );
+            {this.state.allQuestionsAnswered === true && (
+              <input
+                type="submit"
+                value="Finish Assessment"
+                onClick={this.handleFinishAssessment}
+                className="d-block btn btn-danger mt-5 float-right mr-3"
+              />
+            )}
+          </form>
+        </Fragment>
+      );
+    } else if (this.state.isFinished) {
+      return (
+        <Fragment>
+          <h1 className="mb-4">Assessment Result</h1>
+          <h4 className="mb-5">
+            With {this.state.correctAnswersNumber} correct answer/s out of{" "}
+            {this.state.assessmentQuestions.length} questions your result is:
+          </h4>
+          <h3 className="d-2">{this.state.result} %</h3>
+        </Fragment>
+      );
+    }
   }
 }
 
