@@ -17,9 +17,21 @@ class FindAssessment extends Component {
     this.handleSubmitAnswer = this.handleSubmitAnswer.bind(this);
     this.handleRadioOnChange = this.handleRadioOnChange.bind(this);
     this.initializeUserAnswers = this.initializeUserAnswers.bind(this);
+    this.handleFinishAssessment = this.handleFinishAssessment.bind(this);
+    this.setAllQuestionAnswered = this.setAllQuestionAnswered.bind(this);
     this.handleCurrentQuestionNumber = this.handleCurrentQuestionNumber.bind(
       this
     );
+  }
+
+  setAllQuestionAnswered() {
+    !this.state.userAnswers.some(answer => answer === null) &&
+      this.setState({ allQuestionsAnswered: true });
+  }
+
+  handleFinishAssessment(event) {
+    event.preventDefault();
+    console.log("Assessment Finished");
   }
 
   initializeUserAnswers() {
@@ -84,8 +96,9 @@ class FindAssessment extends Component {
         )
       )
     );
-    this.setState({ correctAnswers: correctAnswers });
-    // console.log("correctAnswers: ", correctAnswers);
+    this.setState({ correctAnswers: correctAnswers }, () =>
+      this.setAllQuestionAnswered()
+    );
   }
 
   handleRadioOnChange(event) {
@@ -171,7 +184,8 @@ class FindAssessment extends Component {
               () => this.setCurrentQuestion()
             );
           }
-        });
+        })
+        .then(this.setState({ allQuestionsAnswered: false }));
     }
   }
 
@@ -254,6 +268,14 @@ class FindAssessment extends Component {
             onClick={this.handleSubmitAnswer}
             className="d-block btn btn-success mt-5 float-right mr-3"
           />
+          {this.state.allQuestionsAnswered === true && (
+            <input
+              type="submit"
+              value="Finish Assessment"
+              onClick={this.handleFinishAssessment}
+              className="d-block btn btn-danger mt-5 float-right mr-3"
+            />
+          )}
         </form>
       </Fragment>
     );
