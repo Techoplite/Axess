@@ -336,12 +336,12 @@ class FindAssessment extends Component {
     } else if (this.state.isFinished) {
       return (
         <Fragment>
-          <h1 className="mb-4">Assessment Result</h1>
-          <h4 className="mb-5">
+          <h1 className="mb-5">Assessment Result</h1>
+          <h5 className="mb-5 mt-2">
             With {this.state.correctAnswersNumber} correct answer/s out of{" "}
             {this.state.assessmentQuestions.length} questions your result is:
-          </h4>
-          <h3 className="d-2">{this.state.result} %</h3>
+          </h5>
+          <h3 className="display-3">{this.state.result} %</h3>
         </Fragment>
       );
     }
