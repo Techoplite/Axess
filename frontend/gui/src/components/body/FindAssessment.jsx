@@ -163,6 +163,7 @@ class FindAssessment extends Component {
   }
 
   handleRadioOnChange(event) {
+    console.log(event.target.id);
     this.setState({ radioChecked: event.target.name });
   }
 
@@ -316,13 +317,13 @@ class FindAssessment extends Component {
                           checked={this.state.radioChecked === answer}
                           onChange={this.handleRadioOnChange}
                           type="radio"
-                          id={answer}
+                          id={`radio${answer}`}
                           name={answer}
                           className="custom-control-input"
                         />
                         <label
                           className="custom-control-label"
-                          htmlFor={answer}>
+                          htmlFor={`radio${answer}`}>
                           {answer}
                         </label>
                       </div>
