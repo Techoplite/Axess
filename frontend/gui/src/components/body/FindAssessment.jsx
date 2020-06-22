@@ -42,7 +42,28 @@ class FindAssessment extends Component {
 
   handleFinishAssessment(event) {
     event.preventDefault();
-    console.log("Assessment Finished");
+    let correctAnswers = 0;
+    let assessmentAnswersObjects = [];
+    this.state.assessmentAnswers.map(answersArray =>
+      answersArray.map(questionsAnswers =>
+        questionsAnswers.map(
+          questionAnswer =>
+            (assessmentAnswersObjects = [
+              ...assessmentAnswersObjects,
+              questionAnswer,
+            ])
+        )
+      )
+    );
+    assessmentAnswersObjects.map(assessmentAnswer =>
+      this.state.userAnswers.map(
+        answerGiven =>
+          answerGiven === assessmentAnswer.answer &&
+          assessmentAnswer.is_correct_answer &&
+          correctAnswers++
+      )
+    );
+    console.log("correct answers: ", correctAnswers);
   }
 
   initializeUserAnswers() {
