@@ -116,9 +116,7 @@ class FindAssessment extends Component {
   }
 
   handleRadioOnChange(event) {
-    if (this.state.currentUserAnswer === null) {
-      this.setState({ radioChecked: event.target.name });
-    }
+    this.setState({ radioChecked: event.target.name });
   }
 
   setCurrentQuestion() {
