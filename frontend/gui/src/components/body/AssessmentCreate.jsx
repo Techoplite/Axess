@@ -162,7 +162,7 @@ class AssessmentCreate extends Component {
             Create an Available Answer to Question {this.state.questionNumber} "
             {this.state.questionTextTyped}"
           </h5>
-          <form id="answerForm" autocomplete="off">
+          <form id="answerForm" autoComplete="off">
             <div className="form-group">
               <label className="float-left" htmlFor="answerTextTyped">
                 Answer
@@ -260,7 +260,7 @@ class AssessmentCreate extends Component {
           <h5 className="py-2 mb-5">
             Create a Question in Assessment "{this.state.assessmentTitle}"
           </h5>
-          <form autocomplete="off">
+          <form autoComplete="off">
             <div className="form-group">
               <label className="float-left" htmlFor="questionDescriptionTyped">
                 Description
@@ -337,7 +337,7 @@ class AssessmentCreate extends Component {
           <form
             id="assessmentTitleForm"
             onSubmit={this.handleSubmit}
-            autocomplete="off">
+            autoComplete="off">
             <div className="form-group">
               <label className="float-left" htmlFor="assessmentTitle">
                 Assessment Title
