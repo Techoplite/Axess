@@ -148,7 +148,6 @@ class FindAssessment extends Component {
   }
 
   handleRadioOnChange(event) {
-    console.log(event.target.id);
     this.setState({ radioChecked: event.target.name });
   }
 
