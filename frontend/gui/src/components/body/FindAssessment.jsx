@@ -19,12 +19,23 @@ class FindAssessment extends Component {
     this.initializeUserAnswers = this.initializeUserAnswers.bind(this);
     this.handleFinishAssessment = this.handleFinishAssessment.bind(this);
     this.setAllQuestionAnswered = this.setAllQuestionAnswered.bind(this);
+    this.setCurrentUserAnswer = this.setCurrentUserAnswer.bind(this);
     this.handleCurrentQuestionNumber = this.handleCurrentQuestionNumber.bind(
       this
     );
   }
 
+  setCurrentUserAnswer() {
+    const index = this.state.currentQuestionNumber - 1;
+    const currentUserAnswer = this.state.userAnswers[index];
+    this.setState({
+      currentUserAnswer: currentUserAnswer,
+      radioChecked: currentUserAnswer,
+    });
+  }
+
   setAllQuestionAnswered() {
+    this.setCurrentUserAnswer();
     !this.state.userAnswers.some(answer => answer === null) &&
       this.setState({ allQuestionsAnswered: true });
   }
@@ -69,18 +80,21 @@ class FindAssessment extends Component {
     }
   }
 
-  setCurrentAnswers() {
-    let currentAnswers = [];
+  setCurrentAvailableAnswers() {
+    let currentAvailableAnswers = [];
     this.state.assessmentAnswers.map(assessmentAnswersArrays =>
       assessmentAnswersArrays.map(questionAnswers =>
         questionAnswers.map(
           answer =>
             answer.question === this.state.currentQuestion.id &&
-            (currentAnswers = [...currentAnswers, answer.answer])
+            (currentAvailableAnswers = [
+              ...currentAvailableAnswers,
+              answer.answer,
+            ])
         )
       )
     );
-    this.setState({ currentAnswers: currentAnswers }, () =>
+    this.setState({ currentAvailableAnswers: currentAvailableAnswers }, () =>
       this.setCorrectAnswers()
     );
   }
@@ -102,7 +116,9 @@ class FindAssessment extends Component {
   }
 
   handleRadioOnChange(event) {
-    this.setState({ radioChecked: event.target.name });
+    if (this.state.currentUserAnswer === null) {
+      this.setState({ radioChecked: event.target.name });
+    }
   }
 
   setCurrentQuestion() {
@@ -111,7 +127,7 @@ class FindAssessment extends Component {
         question => question.number === this.state.currentQuestionNumber
       );
       this.setState({ currentQuestion: currentQuestion }, () =>
-        this.setCurrentAnswers()
+        this.setCurrentAvailableAnswers()
       );
     }
   }
@@ -241,8 +257,8 @@ class FindAssessment extends Component {
               <h6>{this.state.currentQuestion.question}</h6>
               <h5 className="mt-5 mb-4 text-left col-12">Answers</h5>
               <div className="text-left ml-5 col-12">
-                {this.state.currentAnswers &&
-                  this.state.currentAnswers.map(answer => (
+                {this.state.currentAvailableAnswers &&
+                  this.state.currentAvailableAnswers.map(answer => (
                     <div
                       className="custom-control custom-radio mt-3"
                       key={answer}>
