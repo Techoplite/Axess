@@ -76,13 +76,21 @@ class FindAssessment extends Component {
 
   handleSubmitAnswer(event) {
     event.preventDefault();
+    if (this.state.radioChecked === null) {
+      this.props.handleMessage(
+        "You have not selected an answer. Please select one befor sumbit."
+      );
+    }
     const answersCopy = this.state.userAnswers.slice();
     const index = this.state.currentQuestionNumber - 1;
     answersCopy[index] = this.state.radioChecked;
 
     if (
-      this.state.currentQuestionNumber === this.state.assessmentQuestions.length
+      this.state.currentQuestionNumber ===
+        this.state.assessmentQuestions.length &&
+      this.state.radioChecked !== null
     ) {
+      this.props.handleMessage("");
       this.setState(
         {
           userAnswers: answersCopy,
@@ -90,7 +98,8 @@ class FindAssessment extends Component {
         },
         () => this.setCurrentQuestion()
       );
-    } else {
+    } else if (this.state.radioChecked !== null) {
+      this.props.handleMessage("");
       this.setState(
         {
           userAnswers: answersCopy,
