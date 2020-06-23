@@ -33,7 +33,20 @@ class FindAssessment extends Component {
         this.state.assessmentQuestions.length
     );
 
-    this.setState({ result: result });
+    this.setState({ result: result }, () => {
+      fetch(`http://127.0.0.1:8000/api/results/`, {
+        method: "post",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          student: 3,
+          assessment: this.state.assessment.id,
+          score: this.state.result,
+        }),
+      });
+    });
   }
 
   setCurrentUserAnswer() {
