@@ -3,6 +3,7 @@ import AssessmentList from "./AssessmentList";
 import AssessmentCreate from "./AssessmentCreate";
 import AssessmentDetail from "./AssessmentDetail";
 import FindAssessment from "./FindAssessment";
+import YourAssessments from "./YourAssessments";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 class Body extends Component {
@@ -33,6 +34,9 @@ class Body extends Component {
             />
             <Route path="/carry-out-assessment">
               <FindAssessment handleMessage={this.props.handleMessage} />
+            </Route>
+            <Route path="/assessments-results">
+              <YourAssessments handleMessage={this.props.handleMessage} />
             </Route>
           </Switch>
         </div>
