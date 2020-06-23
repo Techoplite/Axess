@@ -38,8 +38,8 @@ class YourAssessments extends Component {
         {this.state.assessments.map(assessment => (
           <div key={assessment.id}>
             <li key={assessment.id} className="list-group-item">
-              {assessment.assessment}
-              <br /> Result {assessment.score}%
+              ID: {assessment.assessment}
+              <br /> Result: {assessment.score}%
               <br /> Submitted on {assessment.date.slice(0, 10)} at{" "}
               {assessment.date.slice(11, 19)}
             </li>
