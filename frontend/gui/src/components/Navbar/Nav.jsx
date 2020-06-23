@@ -43,7 +43,7 @@ class Nav extends Component {
             <Link
               to={this.getLink()}
               key={this.props.label}
-              className="nav-link active">
+              className="nav-link active text-white">
               {this.props.label}
             </Link>
           )}
@@ -51,7 +51,7 @@ class Nav extends Component {
             <Link
               to={this.getLink()}
               key={this.props.label}
-              className="nav-link active">
+              className="nav-link active text-white">
               {this.props.label}
             </Link>
           )}
