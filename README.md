@@ -148,3 +148,8 @@ In order to test the current product, the steps to follow are hereafter:
 10. Run the React development server by typing `yarn start`.
 
 A webpage should automatically open in your browser. You are now free to navigate the current functionalities.
+
+# N.B. 
+Due to the current implementing of the authentication system, in order to switch between the Teacher and Student side functionalities, simply change the string value of the `userRole` state inside the `App.js` file located at `frontend/gui/src/`.
+
+![](image.png)
