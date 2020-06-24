@@ -253,7 +253,7 @@ class FindAssessment extends Component {
       return (
         <Fragment>
           <h1 className="mb-5">Find Assessment</h1>
-          <form>
+          <form autoComplete="off">
             <div className="form-group">
               <label htmlFor="assessmentId" className=" float-left">
                 Assessment Id
