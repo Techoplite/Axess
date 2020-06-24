@@ -92,9 +92,45 @@ An assessment can be easily deleted by clicking the `delete` button next to the 
 
 ![](delete-assessment.gif)
 
+# Student Side Use Cases
+
+## Carry Out Assessment
+A student can carry out an assessment, and once submitted the result will be displaied immediately.
+
+1. In order to carry out an assessment a student has to click on the `find assessment` link inside the navbar at the top of the page, and enter the assessment ID given by the teacher.
+
+
+![](carry-out-assessment.gif)
+
+2. The correct answer can be selected between the radio buttons, and by clicking the green `submit` button.
+
+![](submit-answer.gif)
+
+3. Once all the questions have been answered, a red `finish assessment` button will appear next to the green `submit` button. When clicked, the assessment will be submitted and the assessment result will be displayed, informing the user of how many correct answers he/she has given out of how many questions. The result will be displayed as an integer percentage.
+
+![](submit-assessment.gif)
+
+
+#### Example with two correct answers out of three
+
+![](two-out-of-three.gif)
+
+#### Changing answer given after submit.
+
+A student can change an answer give at any time before clicking on the red `finish assessment` button by simply navigating between the question numbers.
+
+
+![](change-answer.gif)
+
+## View All Assessments Results
+
+1. In order to view all the assessments carried out and the related results, a student has to click on the `Assessments Results` link in the navbar. Each result info comprises the assessment ID, the final score, and the date and time of submission.
+
+![](assessments-results.gif)
+
 
 # Project State
-At the current stage, the Teacher side of the project has been implemented through a first iteration, giving an initial prototype of the final result. The next step will be to implement the Student side, and finally an authentication system.
+At the current stage, the Teacher and Student sides of the project has been implemented through a first iteration, giving an initial prototype of the final result. The next step will be to implement the authentication system.
 
 
 # Installation
