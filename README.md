@@ -111,7 +111,7 @@ A student can carry out an assessment, and once submitted the result will be dis
 ![](submit-assessment.gif)
 
 
-#### Example with two correct answers out of 3
+#### Example with two correct answers out of three
 
 ![](two-out-of-three.gif)
 
@@ -130,7 +130,7 @@ A student can change an answer give at any time before clicking on the red `fini
 
 
 # Project State
-At the current stage, the Teacher side of the project has been implemented through a first iteration, giving an initial prototype of the final result. The next step will be to implement the Student side, and finally an authentication system.
+At the current stage, the Teacher and Student sides of the project has been implemented through a first iteration, giving an initial prototype of the final result. The next step will be to implement the authentication system.
 
 
 # Installation
