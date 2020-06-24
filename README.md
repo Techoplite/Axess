@@ -122,6 +122,12 @@ A student can change an answer give at any time before clicking on the red `fini
 
 ![](change-answer.gif)
 
+## View All Assessments Results
+
+1. In order to view all the assessments carried out and the related results, a student has to click on the `Assessments Results` link in the navbar. Each result info comprises the assessment ID, the final score, and the date and time of submission.
+
+![](assessments-results.gif)
+
 
 # Project State
 At the current stage, the Teacher side of the project has been implemented through a first iteration, giving an initial prototype of the final result. The next step will be to implement the Student side, and finally an authentication system.
