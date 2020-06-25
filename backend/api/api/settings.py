@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+
+    'allauth.socialaccount' # needed for delete user
 ]
 
 MIDDLEWARE = [
@@ -146,5 +148,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'accounts.serializers.RegisterSerializer',
+    'REGISTER_SERIALIZER': 'accounts.serializers.RegisterProfileSerializer',
 }
+
+SITE_ID = 2
