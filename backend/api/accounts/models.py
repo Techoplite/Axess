@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Userprofile(models.Model):
+class UserProfile(models.Model):
     ROLES = [
         ("Student", "Student"),
         ("Teacher", "Teacher"),
