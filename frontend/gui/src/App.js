@@ -14,6 +14,21 @@ class App extends Component {
       userRole: "Student"
     }
     this.handleMessage = this.handleMessage.bind(this)
+    this.getUserRole = this.getUserRole.bind(this)
+  }
+
+  async getUserRole() {
+    await fetch("http://127.0.0.1:8000/rest-auth/user/",
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': ' Token e68edf2d326bef3b12b3008c851261b0c7c3dced',
+        }
+      }
+    )
+      .then(response => response.json())
+      .then(data => this.setState({ userRole: data.role }))
   }
 
   handleMessage(message) {
@@ -21,7 +36,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-
+    this.getUserRole()
   }
 
 
