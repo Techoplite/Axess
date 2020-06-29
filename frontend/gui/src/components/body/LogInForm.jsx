@@ -3,17 +3,14 @@ import React, { Component } from "react";
 class LogInForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      
-    };
+    this.state = {};
   }
-
- 
 
   render() {
     return (
       !this.props.isAuthenticated && (
-        <form>
+        <form className="col-8 mx-auto">
+          <h1 className="mb-4">Log In</h1>
           <div className="form-group">
             <label htmlFor="username" className="float-left">
               Username

@@ -21,7 +21,15 @@ class Body extends Component {
               <h1 className="display-4">Axess</h1>
             </div>
           </div>
-          <LogInForm handleLogIn={this.props.handleLogIn} handleChange={this.props.handleChange} isAuthenticated={this.props.isAuthenticated}/>
+          <Switch>
+            <Route path="/login">
+              <LogInForm
+                handleLogIn={this.props.handleLogIn}
+                handleChange={this.props.handleChange}
+                isAuthenticated={this.props.isAuthenticated}
+              />
+            </Route>
+          </Switch>
           {this.props.isAuthenticated && (
             <Switch>
               <Route path="/assessment-list">
