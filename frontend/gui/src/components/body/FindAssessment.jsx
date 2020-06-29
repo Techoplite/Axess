@@ -27,6 +27,14 @@ class FindAssessment extends Component {
     );
   }
 
+  componentWillMount() {
+    this.props.handleMessage("");
+  }
+
+  componentDidMount() {
+    this.props.handleMessage("");
+  }
+
   calculateResult() {
     const result = Math.floor(
       (this.state.correctAnswersNumber * 100) /

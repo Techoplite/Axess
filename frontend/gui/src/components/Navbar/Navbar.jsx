@@ -15,7 +15,11 @@ class Navabar extends Component {
             Axess
           </Link>
           <Navs role={this.props.role} />
-          <Authentication username={this.props.username} isAuthenticated={this.props.isAuthenticated}/>
+          <Authentication
+            username={this.props.username}
+            isAuthenticated={this.props.isAuthenticated}
+            handleOnClick={this.props.handleOnClick}
+          />
         </nav>
       </Router>
     );

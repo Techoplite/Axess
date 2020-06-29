@@ -10,6 +10,10 @@ class YourAssessments extends Component {
     this.loadData = this.loadData.bind(this);
   }
 
+  componentWillMount() {
+    this.props.handleMessage("");
+  }
+
   loadData() {
     fetch("http://127.0.0.1:8000/api/results/", {
       method: "GET",

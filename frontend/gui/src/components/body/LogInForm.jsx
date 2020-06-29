@@ -6,6 +6,10 @@ class LogInForm extends Component {
     this.state = {};
   }
 
+  componentWillMount() {
+    this.props.handleMessage("");
+  }
+
   render() {
     return (
       !this.props.isAuthenticated && (

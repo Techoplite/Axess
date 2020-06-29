@@ -15,9 +15,12 @@ class Authentication extends Component {
             <button type="button" className="btn btn-primary">
               {this.props.username}
             </button>
-            <a className="nav-link active text-white" href="#">
+            <button
+              onClick={this.props.handleOnClick}
+              className="nav-link active text-white"
+              style={{ border: "none", background: "none" }}>
               Log Out
-            </a>
+            </button>
           </Fragment>
         ) : (
           <Fragment>

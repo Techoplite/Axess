@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import AssessmentList from "./AssessmentList";
 import AssessmentCreate from "./AssessmentCreate";
 import AssessmentDetail from "./AssessmentDetail";
@@ -24,9 +24,11 @@ class Body extends Component {
           <Switch>
             <Route path="/login">
               <LogInForm
+                handleMessage={this.props.handleMessage}
                 handleLogIn={this.props.handleLogIn}
                 handleChange={this.props.handleChange}
                 isAuthenticated={this.props.isAuthenticated}
+                onClick={this.props.handleOnClick}
               />
             </Route>
           </Switch>

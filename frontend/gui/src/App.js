@@ -19,11 +19,17 @@ class App extends Component {
     this.handleMessage = this.handleMessage.bind(this)
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleOnClick = this.handleOnClick.bind(this);
 
 
   }
 
-  async handleLogIn(event, username, password) {
+  async handleOnClick(event) {
+    event.preventDefault();
+    await fetch("http://127.0.0.1:8000/rest-auth/logout/", { method: "POST" }).then(this.setState({ isAuthenticated: false, userRole: undefined, username: null, password: null }, () => this.handleMessage("Log Out successful.")))
+  }
+
+  async handleLogIn(event) {
     event.preventDefault();
     await fetch("http://127.0.0.1:8000/rest-auth/login/", {
       method: "POST",
@@ -46,13 +52,14 @@ class App extends Component {
               Authorization: `Token ${this.state.token}`,
             },
           }).then(response =>
-            response.json().then(data => this.setState({ isAuthenticated: true, userRole: data.role }))
+            response.json().then(data => this.setState({ isAuthenticated: true, userRole: data.role }, this.handleMessage("Login successful.")))
           )
         )
       );
   }
 
   handleChange(event) {
+    this.handleMessage("")
     this.setState({ [event.target.id]: event.target.value });
   }
 
@@ -61,6 +68,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.handleMessage("")
     this.state.isAuthenticated && this.getUserRole()
   }
 
@@ -69,7 +77,7 @@ class App extends Component {
   render() {
     return (
       <div className="App bg-light">
-        <Navabar role={this.state.userRole} username={this.state.username} isAuthenticated={this.state.isAuthenticated} />
+        <Navabar role={this.state.userRole} username={this.state.username} isAuthenticated={this.state.isAuthenticated} handleOnClick={this.handleOnClick} />
         {this.state.message && <Message text={this.state.message} />}
         <Body handleMessage={this.handleMessage} handleLogIn={this.handleLogIn} handleChange={this.handleChange} isAuthenticated
           ={this.state.isAuthenticated} />

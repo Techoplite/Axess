@@ -70,6 +70,10 @@ class AssessmentList extends Component {
       });
   }
 
+  componentWillMount() {
+    this.props.handleMessage("");
+  }
+
   componentDidMount() {
     this.props.handleMessage("");
     this.loadData();
