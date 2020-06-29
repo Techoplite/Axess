@@ -10,25 +10,50 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isAuthenticated: false,
       message: '',
-      userRole: "Student"
+      userRole: undefined,
+      username: null,
+      password: null,
     }
     this.handleMessage = this.handleMessage.bind(this)
-    this.getUserRole = this.getUserRole.bind(this)
+    this.handleLogIn = this.handleLogIn.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+
+
   }
 
-  async getUserRole() {
-    await fetch("http://127.0.0.1:8000/rest-auth/user/",
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': ' Token e68edf2d326bef3b12b3008c851261b0c7c3dced',
-        }
-      }
-    )
+  async handleLogIn(event, username, password) {
+    event.preventDefault();
+    await fetch("http://127.0.0.1:8000/rest-auth/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        email: "",
+        password: this.state.password,
+      }),
+    })
       .then(response => response.json())
-      .then(data => this.setState({ userRole: data.role }))
+      .then(data =>
+        this.setState({ token: data.key }, () =>
+          fetch("http://127.0.0.1:8000/rest-auth/user/", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Token ${this.state.token}`,
+            },
+          }).then(response =>
+            response.json().then(data => this.setState({ isAuthenticated: true, userRole: data.role }))
+          )
+        )
+      );
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   handleMessage(message) {
@@ -36,7 +61,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getUserRole()
+    this.state.isAuthenticated && this.getUserRole()
   }
 
 
@@ -46,7 +71,7 @@ class App extends Component {
       <div className="App bg-light">
         <Navabar role={this.state.userRole} />
         {this.state.message && <Message text={this.state.message} />}
-        <Body handleMessage={this.handleMessage} role={this.state.userRole} />
+        <Body handleMessage={this.handleMessage} handleLogIn={this.handleLogIn} handleChange={this.handleChange} />
         <Footer />
       </div>
     );

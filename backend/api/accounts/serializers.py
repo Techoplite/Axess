@@ -5,7 +5,7 @@ from django.db import models
 from rest_auth.registration.serializers import RegisterSerializer
 from rest_auth.serializers import UserDetailsSerializer
 from rest_framework import serializers
-
+from rest_framework.authtoken.models import Token
 from .models import UserProfile
 
 
