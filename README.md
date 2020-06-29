@@ -117,7 +117,7 @@ A student can carry out an assessment, and once submitted the result will be dis
 
 #### Changing answer given after submit.
 
-A student can change an answer give at any time before clicking on the red `finish assessment` button by simply navigating between the question numbers.
+A student can change an answer given at any time before clicking on the red `finish assessment` button by simply navigating between the question numbers.
 
 
 ![](change-answer.gif)
