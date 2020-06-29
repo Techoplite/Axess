@@ -35,16 +35,17 @@ class YourAssessments extends Component {
     return (
       <Fragment>
         <h3 className="py-2">Your Assessments Results</h3>
-        {this.state.assessments.map(assessment => (
-          <div key={assessment.id}>
-            <li key={assessment.id} className="list-group-item">
-              ID: {assessment.assessment}
-              <br /> Result: {assessment.score}%
-              <br /> Submitted on {assessment.date.slice(0, 10)} at{" "}
-              {assessment.date.slice(11, 19)}
-            </li>
-          </div>
-        ))}
+        {!this.state.assessments === [] &&
+          this.state.assessments.map(assessment => (
+            <div key={assessment.id}>
+              <li key={assessment.id} className="list-group-item">
+                ID: {assessment.assessment}
+                <br /> Result: {assessment.score}%
+                <br /> Submitted on {assessment.date.slice(0, 10)} at{" "}
+                {assessment.date.slice(11, 19)}
+              </li>
+            </div>
+          ))}
       </Fragment>
     );
   }

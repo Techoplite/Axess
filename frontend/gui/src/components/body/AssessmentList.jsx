@@ -79,26 +79,27 @@ class AssessmentList extends Component {
     return (
       <Fragment>
         <h3 className="py-2">Your Assessments</h3>
-        {this.state.assessments.map(assessment => (
-          <div key={assessment.id}>
-            <Link
-              className="nav-link active"
-              key={assessment.id}
-              to={`assessment-detail/${assessment.id}`}>
-              <li key={assessment.id} className="list-group-item">
-                {assessment.title} - ID: {assessment.id}
-                <button
-                  onClick={this.handleDeleteAssessment}
-                  type="submit"
-                  name={assessment.title} 
-                  id="deleteAssessment"
-                  className="btn btn-sm btn-danger float-right align-middle mt-n1 mr-2">
-                  Delete
-                </button>
-              </li>
-            </Link>
-          </div>
-        ))}
+        {!this.state.assessments === [] &&
+          this.state.assessments.map(assessment => (
+            <div key={assessment.id}>
+              <Link
+                className="nav-link active"
+                key={assessment.id}
+                to={`assessment-detail/${assessment.id}`}>
+                <li key={assessment.id} className="list-group-item">
+                  {assessment.title} - ID: {assessment.id}
+                  <button
+                    onClick={this.handleDeleteAssessment}
+                    type="submit"
+                    name={assessment.title}
+                    id="deleteAssessment"
+                    className="btn btn-sm btn-danger float-right align-middle mt-n1 mr-2">
+                    Delete
+                  </button>
+                </li>
+              </Link>
+            </div>
+          ))}
       </Fragment>
     );
   }
