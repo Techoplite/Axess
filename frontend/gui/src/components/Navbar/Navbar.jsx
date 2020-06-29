@@ -11,7 +11,7 @@ class Navabar extends Component {
         <nav
           className="navbar navbar-light bg-secondary py-3"
           style={{ zIndex: 0 }}>
-          <Link className="navbar-brand text-white" to="/#">
+          <Link className="navbar-brand text-white" to="/home">
             Axess
           </Link>
           <Navs role={this.props.role} />

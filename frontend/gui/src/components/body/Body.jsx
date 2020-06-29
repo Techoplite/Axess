@@ -5,6 +5,7 @@ import AssessmentDetail from "./AssessmentDetail";
 import FindAssessment from "./FindAssessment";
 import YourAssessments from "./YourAssessments";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./Home";
 import LogInForm from "./LogInForm";
 
 class Body extends Component {
@@ -22,6 +23,9 @@ class Body extends Component {
             </div>
           </div>
           <Switch>
+            <Route path="/home">
+              <Home handleMessage={this.props.handleMessage} />
+            </Route>
             <Route path="/login">
               <LogInForm
                 handleMessage={this.props.handleMessage}
