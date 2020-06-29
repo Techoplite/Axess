@@ -4,18 +4,17 @@ class Authentication extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true,
-      username: "Mirko",
+     
     };
   }
 
   render() {
     return (
       <Fragment>
-        {this.state.isLoggedIn ? (
+        {this.props.isAuthenticated ? (
           <Fragment>
             <button type="button" className="btn btn-primary">
-              {this.state.username}
+              {this.props.username}
             </button>
             <a className="nav-link active text-white" href="#">
               Log Out

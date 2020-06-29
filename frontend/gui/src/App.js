@@ -69,9 +69,10 @@ class App extends Component {
   render() {
     return (
       <div className="App bg-light">
-        <Navabar role={this.state.userRole} />
+        <Navabar role={this.state.userRole} username={this.state.username} isAuthenticated={this.state.isAuthenticated} />
         {this.state.message && <Message text={this.state.message} />}
-        <Body handleMessage={this.handleMessage} handleLogIn={this.handleLogIn} handleChange={this.handleChange} />
+        <Body handleMessage={this.handleMessage} handleLogIn={this.handleLogIn} handleChange={this.handleChange} isAuthenticated
+          ={this.state.isAuthenticated} />
         <Footer />
       </div>
     );
