@@ -28,9 +28,9 @@ class Authentication extends Component {
               <Link className="nav-link active text-white" to="/login">
                 Log In
               </Link>
-              <a className="nav-link active text-white" href="#">
+              <Link className="nav-link active text-white" to="/register">
                 Register
-              </a>
+              </Link>
             </Router>
           </Fragment>
         )}

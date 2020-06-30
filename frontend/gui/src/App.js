@@ -20,8 +20,15 @@ class App extends Component {
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleOnClick = this.handleOnClick.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
+    this.handleRadioOnChange = this.handleRadioOnChange.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
 
 
+  }
+
+  handleRadioOnChange(event) {
+    this.setState({ radioChecked: event.target.name });
   }
 
   async handleOnClick(event) {
@@ -58,6 +65,25 @@ class App extends Component {
       );
   }
 
+  async handleRegister(event) {
+    event.preventDefault();
+    await fetch("http://127.0.0.1:8000/rest-auth/register/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        {
+          "username": "",
+          "email": "",
+          "password1": "",
+          "password2": "",
+          "role": null
+        }
+      ),
+    })
+  }
+
   handleChange(event) {
     this.handleMessage("")
     this.setState({ [event.target.id]: event.target.value });
@@ -80,7 +106,8 @@ class App extends Component {
         <Navabar role={this.state.userRole} username={this.state.username} isAuthenticated={this.state.isAuthenticated} handleOnClick={this.handleOnClick} />
         {this.state.message && <Message text={this.state.message} />}
         <Body handleMessage={this.handleMessage} handleLogIn={this.handleLogIn} handleChange={this.handleChange} isAuthenticated
-          ={this.state.isAuthenticated} />
+          ={this.state.isAuthenticated} handleRegister={this.handleRegister} handleRadioOnChange={this.handleRadioOnChange}
+          radioChecked={this.state.radioChecked} />
         <Footer />
       </div>
     );

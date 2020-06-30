@@ -7,6 +7,7 @@ import YourAssessments from "./YourAssessments";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import LogInForm from "./LogInForm";
+import RegisterForm from "./RegisterForm";
 
 class Body extends Component {
   constructor(props) {
@@ -28,6 +29,17 @@ class Body extends Component {
             </Route>
             <Route path="/login">
               <LogInForm
+                handleMessage={this.props.handleMessage}
+                handleLogIn={this.props.handleLogIn}
+                handleChange={this.props.handleChange}
+                isAuthenticated={this.props.isAuthenticated}
+                onClick={this.props.handleOnClick}
+              />
+            </Route>
+            <Route path="/register">
+              <RegisterForm
+                radioChecked={this.props.radioChecked}
+                handleRadioOnChange={this.props.handleRadioOnChange}
                 handleMessage={this.props.handleMessage}
                 handleLogIn={this.props.handleLogIn}
                 handleChange={this.props.handleChange}
