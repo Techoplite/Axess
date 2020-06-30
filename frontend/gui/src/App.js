@@ -57,8 +57,8 @@ class App extends Component {
               "Content-Type": "application/json",
               Authorization: `Token ${this.state.token}`,
             },
-          }).then(response =>
-            response.json().then(data => this.setState({ isAuthenticated: true, userRole: data.role }, this.handleMessage("Login successful.")))
+          }).then(response => this.state.token ?
+            response.json().then(data => this.setState({ isAuthenticated: true, userRole: data.role }, this.handleMessage("Login successful."))) : this.handleMessage("There is no user with username and password provided.")
           )
         )
       );
