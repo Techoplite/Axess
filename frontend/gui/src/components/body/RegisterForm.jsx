@@ -6,6 +6,10 @@ class RegisterForm extends Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    this.props.handleMessage("");
+  }
+
   render() {
     return (
       !this.props.isAuthenticated && (
@@ -32,6 +36,7 @@ class RegisterForm extends Component {
               className="form-control"
               id="email"
               onChange={this.props.handleChange}
+              required
             />
           </div>
           <div className="form-group mb-4">
@@ -102,7 +107,7 @@ class RegisterForm extends Component {
           <button
             type="submit"
             className="btn btn-primary float-right  mt-3"
-            onClick={this.props.handleRegister}>
+            onClick={event => this.props.handleRegister(event)}>
             Submit
           </button>
         </form>

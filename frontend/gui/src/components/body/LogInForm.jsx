@@ -6,7 +6,7 @@ class LogInForm extends Component {
     this.state = {};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.handleMessage("");
   }
 

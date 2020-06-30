@@ -65,23 +65,29 @@ class App extends Component {
   }
 
   async handleRegister(event) {
-    this.state.password1 !== this.state.password2 && this.setState({passwordsDiffer: true})
-    // await fetch("http://127.0.0.1:8000/rest-auth/register/", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(
-    //     {
-    //       "username": "",
-    //       "email": "",
-    //       "password1": "",
-    //       "password2": "",
-    //       "role": null
-    //     }
-    //   ),
-    // })
+    event.persist()
+    this.state.password1 !== this.state.password2 ? this.setState({ passwordsDiffer: true }) :
+      await fetch("http://127.0.0.1:8000/rest-auth/registration/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+          {
+            username: this.state.username,
+            email: this.state.email,
+            password1: this.state.password1,
+            password2: this.state.password2,
+            role: this.state.radioChecked
+          }
+        ),
+      })
+        .then(response => response.json())
+        .then(data => this.setState(
+          { token: data.key, password: this.state.password1 }
+          , () => this.handleLogIn(event)))
   }
+
 
   handleChange(event) {
     this.handleMessage("")
