@@ -11,7 +11,7 @@ class Home extends Component {
   }
 
   render() {
-    return <h1 className="display-1">Welcome to Axess</h1>;
+    return <h1 className="display-3 my-5 pt-5">Welcome to Axess</h1>;
   }
 }
 
