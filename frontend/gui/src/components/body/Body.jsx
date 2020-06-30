@@ -38,13 +38,14 @@ class Body extends Component {
             </Route>
             <Route path="/register">
               <RegisterForm
+                passwordsDiffer={this.props.passwordsDiffer}
+                handleRegister={this.props.handleRegister}
                 radioChecked={this.props.radioChecked}
                 handleRadioOnChange={this.props.handleRadioOnChange}
                 handleMessage={this.props.handleMessage}
                 handleLogIn={this.props.handleLogIn}
                 handleChange={this.props.handleChange}
                 isAuthenticated={this.props.isAuthenticated}
-                onClick={this.props.handleOnClick}
               />
             </Route>
           </Switch>

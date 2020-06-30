@@ -20,6 +20,7 @@ class RegisterForm extends Component {
               className="form-control"
               id="username"
               onChange={this.props.handleChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -42,6 +43,7 @@ class RegisterForm extends Component {
               className="form-control"
               id="password1"
               onChange={this.props.handleChange}
+              required
             />
           </div>
           <div className="form-group mb-4">
@@ -53,8 +55,17 @@ class RegisterForm extends Component {
               className="form-control"
               id="password2"
               onChange={this.props.handleChange}
+              required
             />
+            {this.props.passwordsDiffer && (
+              <small
+                id="questionDescriptionTyped"
+                className="form-text text-muted text-left">
+                The two passwords provided don't match.
+              </small>
+            )}
           </div>
+
           <div className="form-group">
             <label htmlFor="roleRadio" className="col-12 text-left p-0 mb-3">
               Role
@@ -67,6 +78,7 @@ class RegisterForm extends Component {
                 id="radioTeacher"
                 name="Teacher"
                 className="custom-control-input"
+                required={!this.props.radioChecked && true}
               />
               <label className="custom-control-label" htmlFor="radioTeacher">
                 Teacher
@@ -80,6 +92,7 @@ class RegisterForm extends Component {
                 id="radioStudent"
                 name="Student"
                 className="custom-control-input"
+                required={!this.props.radioChecked && true}
               />
               <label className="custom-control-label" htmlFor="radioStudent">
                 Student

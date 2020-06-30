@@ -22,7 +22,6 @@ class App extends Component {
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
     this.handleRadioOnChange = this.handleRadioOnChange.bind(this);
-    this.handleRegister = this.handleRegister.bind(this);
 
 
   }
@@ -66,22 +65,22 @@ class App extends Component {
   }
 
   async handleRegister(event) {
-    event.preventDefault();
-    await fetch("http://127.0.0.1:8000/rest-auth/register/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(
-        {
-          "username": "",
-          "email": "",
-          "password1": "",
-          "password2": "",
-          "role": null
-        }
-      ),
-    })
+    this.state.password1 !== this.state.password2 && this.setState({passwordsDiffer: true})
+    // await fetch("http://127.0.0.1:8000/rest-auth/register/", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(
+    //     {
+    //       "username": "",
+    //       "email": "",
+    //       "password1": "",
+    //       "password2": "",
+    //       "role": null
+    //     }
+    //   ),
+    // })
   }
 
   handleChange(event) {
@@ -105,9 +104,16 @@ class App extends Component {
       <div className="App bg-light">
         <Navabar role={this.state.userRole} username={this.state.username} isAuthenticated={this.state.isAuthenticated} handleOnClick={this.handleOnClick} />
         {this.state.message && <Message text={this.state.message} />}
-        <Body handleMessage={this.handleMessage} handleLogIn={this.handleLogIn} handleChange={this.handleChange} isAuthenticated
-          ={this.state.isAuthenticated} handleRegister={this.handleRegister} handleRadioOnChange={this.handleRadioOnChange}
-          radioChecked={this.state.radioChecked} />
+        <Body
+          passwordsDiffer={this.state.passwordsDiffer}
+          handleMessage={this.handleMessage}
+          handleLogIn={this.handleLogIn}
+          handleChange={this.handleChange}
+          isAuthenticated={this.state.isAuthenticated}
+          handleRegister={this.handleRegister}
+          handleRadioOnChange={this.handleRadioOnChange}
+          radioChecked={this.state.radioChecked}
+        />
         <Footer />
       </div>
     );
