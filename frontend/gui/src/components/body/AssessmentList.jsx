@@ -15,7 +15,13 @@ class AssessmentList extends Component {
   handleDeleteAssessment(event) {
     event.preventDefault();
     const assessmentName = event.target.name;
-    fetch("http://localhost:8000/api/assessments/")
+    fetch("http://localhost:8000/api/assessments/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${this.props.token}`,
+      },
+    })
       .then(response => response.json())
       .then(data =>
         this.setState(
@@ -30,6 +36,7 @@ class AssessmentList extends Component {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
+                Authorization: `Token ${this.props.token}`,
               },
             })
               .then(response => response.text())
@@ -38,8 +45,7 @@ class AssessmentList extends Component {
                   method: "GET",
                   headers: {
                     "Content-Type": "application/json",
-                    Authorization:
-                      "Token bd7c6fdc5041f92eb29c942ada9ae9ebe5889b9d",
+                    Authorization: `Token ${this.props.token}`,
                   },
                 })
                   .then(response => response.json())
@@ -59,7 +65,7 @@ class AssessmentList extends Component {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token bd7c6fdc5041f92eb29c942ada9ae9ebe5889b9d",
+        Authorization: `Token ${this.props.token}`,
       },
     })
       .then(response => response.json())
@@ -68,10 +74,6 @@ class AssessmentList extends Component {
           assessments: data,
         });
       });
-  }
-
-  componentWillMount() {
-    this.props.handleMessage("");
   }
 
   componentDidMount() {
@@ -83,7 +85,7 @@ class AssessmentList extends Component {
     return (
       <Fragment>
         <h3 className="py-2">Your Assessments</h3>
-        {!this.state.assessments === [] &&
+        {this.state.assessments !== [] &&
           this.state.assessments.map(assessment => (
             <div key={assessment.id}>
               <Link

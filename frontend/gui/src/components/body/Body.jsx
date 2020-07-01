@@ -52,7 +52,10 @@ class Body extends Component {
           {this.props.isAuthenticated && (
             <Switch>
               <Route path="/assessment-list">
-                <AssessmentList handleMessage={this.props.handleMessage} />
+                <AssessmentList
+                  handleMessage={this.props.handleMessage}
+                  token={this.props.token}
+                />
               </Route>
               <Route path="/assessment-create">
                 <AssessmentCreate handleMessage={this.props.handleMessage} />
@@ -66,6 +69,7 @@ class Body extends Component {
                 <FindAssessment handleMessage={this.props.handleMessage} />
               </Route>
               <Route path="/assessments-results">
+                token={this.props.token}
                 <YourAssessments handleMessage={this.props.handleMessage} />
               </Route>
             </Switch>

@@ -19,7 +19,7 @@ class YourAssessments extends Component {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token bd7c6fdc5041f92eb29c942ada9ae9ebe5889b9d",
+        Authorization: `Token ${this.props.token}`,
       },
     })
       .then(response => response.json())

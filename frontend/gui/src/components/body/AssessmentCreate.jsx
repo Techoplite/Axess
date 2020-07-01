@@ -37,10 +37,6 @@ class AssessmentCreate extends Component {
     this.isDuplicateAnswer = this.isDuplicateAnswer.bind(this);
     this.handleCreateNewAssessment = this.handleCreateNewAssessment.bind(this);
   }
-  componentWillMount() {
-    this.props.handleMessage("");
-    
-  }
 
   componentDidMount() {
     this.props.handleMessage("");

@@ -111,6 +111,7 @@ class App extends Component {
         <Navabar role={this.state.userRole} username={this.state.username} isAuthenticated={this.state.isAuthenticated} handleOnClick={this.handleOnClick} />
         {this.state.message && <Message text={this.state.message} />}
         <Body
+          token={this.state.token}
           passwordsDiffer={this.state.passwordsDiffer}
           handleMessage={this.handleMessage}
           handleLogIn={this.handleLogIn}
