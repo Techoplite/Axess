@@ -46,9 +46,6 @@ class AssessmentDetail extends Component {
       </div>
     ));
   }
-  componentWillMount() {
-    this.props.handleMessage("");
-  }
 
   async componentDidMount() {
     const { id } = this.props.match.params;

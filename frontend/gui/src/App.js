@@ -58,7 +58,7 @@ class App extends Component {
               Authorization: `Token ${this.state.token}`,
             },
           }).then(response => this.state.token ?
-            response.json().then(data => this.setState({ isAuthenticated: true, userRole: data.role }, this.handleMessage("Login successful."))) : this.handleMessage("There is no user with username and password provided.")
+            response.json().then(data => this.setState({ isAuthenticated: true, userRole: data.role, userID: data.pk }, this.handleMessage("Login successful."))) : this.handleMessage("There is no user with username and password provided.")
           )
         )
       );
@@ -111,6 +111,7 @@ class App extends Component {
         <Navabar role={this.state.userRole} username={this.state.username} isAuthenticated={this.state.isAuthenticated} handleOnClick={this.handleOnClick} />
         {this.state.message && <Message text={this.state.message} />}
         <Body
+          userID={this.state.userID}
           token={this.state.token}
           passwordsDiffer={this.state.passwordsDiffer}
           handleMessage={this.handleMessage}

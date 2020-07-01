@@ -433,6 +433,7 @@ class AssessmentCreate extends Component {
         },
         body: JSON.stringify({
           title: this.state.assessmentTitle,
+          creator: this.props.userID,
         }),
       })
         .then(response => response.json())

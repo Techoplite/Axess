@@ -5,7 +5,7 @@ from .models import Assessment, Question, Answer, Result
 class AssessmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assessment
-        fields = ['id', 'title']
+        fields = ['id', 'title', 'creator']
 
 
 class QuestionSerializer(serializers.ModelSerializer):

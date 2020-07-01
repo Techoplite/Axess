@@ -53,12 +53,16 @@ class Body extends Component {
             <Switch>
               <Route path="/assessment-list">
                 <AssessmentList
+                  userID={this.props.userID}
                   handleMessage={this.props.handleMessage}
                   token={this.props.token}
                 />
               </Route>
               <Route path="/assessment-create">
-                <AssessmentCreate handleMessage={this.props.handleMessage} />
+                <AssessmentCreate
+                  handleMessage={this.props.handleMessage}
+                  userID={this.props.userID}
+                />
               </Route>
               <Route
                 path="/assessment-detail/:id"
