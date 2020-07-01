@@ -51,7 +51,9 @@ class AssessmentList extends Component {
                   .then(response => response.json())
                   .then(data => {
                     this.setState({
-                      assessments: data,
+                      assessments: data.filter(
+                        assessment => assessment.creator === this.props.userID
+                      ),
                     });
                   });
               });
