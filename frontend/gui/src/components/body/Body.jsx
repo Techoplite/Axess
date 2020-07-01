@@ -70,10 +70,14 @@ class Body extends Component {
                 component={AssessmentDetail}
               />
               <Route path="/carry-out-assessment">
-                <FindAssessment handleMessage={this.props.handleMessage} />
+                <FindAssessment
+                  handleMessage={this.props.handleMessage}
+                  userID={this.props.userID}
+                />
               </Route>
               <Route path="/assessments-results">
                 <YourAssessments
+                  userID={this.props.userID}
                   handleMessage={this.props.handleMessage}
                   token={this.props.token}
                 />

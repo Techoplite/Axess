@@ -27,10 +27,6 @@ class FindAssessment extends Component {
     );
   }
 
-  componentWillMount() {
-    this.props.handleMessage("");
-  }
-
   componentDidMount() {
     this.props.handleMessage("");
   }
@@ -49,8 +45,8 @@ class FindAssessment extends Component {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          student: 3,
-          assessment: this.state.assessment.id,
+          student: this.props.userID,
+          assessment: this.state.assessmentId,
           score: this.state.result,
         }),
       });
