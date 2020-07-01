@@ -69,8 +69,10 @@ class Body extends Component {
                 <FindAssessment handleMessage={this.props.handleMessage} />
               </Route>
               <Route path="/assessments-results">
-                token={this.props.token}
-                <YourAssessments handleMessage={this.props.handleMessage} />
+                <YourAssessments
+                  handleMessage={this.props.handleMessage}
+                  token={this.props.token}
+                />
               </Route>
             </Switch>
           )}

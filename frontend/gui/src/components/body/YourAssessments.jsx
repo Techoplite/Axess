@@ -39,7 +39,7 @@ class YourAssessments extends Component {
     return (
       <Fragment>
         <h3 className="py-2">Your Assessments Results</h3>
-        {!this.state.assessments === [] &&
+        {this.state.assessments !== [] &&
           this.state.assessments.map(assessment => (
             <div key={assessment.id}>
               <li key={assessment.id} className="list-group-item">
