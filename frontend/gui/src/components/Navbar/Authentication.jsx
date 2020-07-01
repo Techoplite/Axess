@@ -12,9 +12,9 @@ class Authentication extends Component {
       <Fragment>
         {this.props.isAuthenticated ? (
           <Fragment>
-            <button type="button" className="btn btn-primary">
+            <p className="nav-link active text-white my-auto rounded bg-primary">
               {this.props.username}
-            </button>
+            </p>
             <button
               onClick={this.props.handleOnClick}
               className="nav-link active text-white"
