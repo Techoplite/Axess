@@ -29,7 +29,7 @@ class YourAssessments extends Component {
   }
 
   componentDidMount() {
-    this.props.handleMessage("");
+    this.props.handleMessage("", "success");
     this.loadData();
   }
 

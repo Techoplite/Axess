@@ -7,7 +7,7 @@ class Message extends Component {
   }
   render() {
     return (
-      <nav className="navbar navbar-light bg-success sticky-top">
+      <nav className={`navbar navbar-light  bg-${this.props.color} sticky-top`}>
         <div className="py-1 mx-auto text-white">{this.props.text}</div>
       </nav>
     );

@@ -7,7 +7,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.handleMessage("");
+    this.props.handleMessage("", "success");
   }
 
   render() {

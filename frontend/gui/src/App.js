@@ -32,7 +32,7 @@ class App extends Component {
 
   async handleOnClick(event) {
     event.preventDefault();
-    await fetch("http://127.0.0.1:8000/rest-auth/logout/", { method: "POST" }).then(this.setState({ isAuthenticated: false, userRole: undefined, username: null, password: null }, () => this.handleMessage("Log Out successful.")))
+    await fetch("http://127.0.0.1:8000/rest-auth/logout/", { method: "POST" }).then(this.setState({ isAuthenticated: false, userRole: undefined, username: null, password: null }, () => this.handleMessage("Log Out successful.", "success")))
   }
 
   async handleLogIn(event) {
@@ -58,7 +58,7 @@ class App extends Component {
               Authorization: `Token ${this.state.token}`,
             },
           }).then(response => this.state.token ?
-            response.json().then(data => this.setState({ isAuthenticated: true, userRole: data.role, userID: data.pk }, this.handleMessage("Login successful."))) : this.handleMessage("There is no user with username and password provided.")
+            response.json().then(data => this.setState({ isAuthenticated: true, userRole: data.role, userID: data.pk }, this.handleMessage("Login successful.", "success"))) : this.handleMessage("There is no user with username and password provided.", "danger")
           )
         )
       );
@@ -90,16 +90,16 @@ class App extends Component {
 
 
   handleChange(event) {
-    this.handleMessage("")
+    this.handleMessage("", "success")
     this.setState({ [event.target.id]: event.target.value });
   }
 
-  handleMessage(message) {
-    this.setState({ message: message })
+  handleMessage(message, color) {
+    this.setState({ message: message, color: color })
   }
 
   componentDidMount() {
-    this.handleMessage("")
+    this.handleMessage("", "success")
     this.state.isAuthenticated && this.getUserRole()
   }
 
@@ -109,7 +109,7 @@ class App extends Component {
     return (
       <div className="App bg-light">
         <Navabar role={this.state.userRole} username={this.state.username} isAuthenticated={this.state.isAuthenticated} handleOnClick={this.handleOnClick} />
-        {this.state.message && <Message text={this.state.message} />}
+        {this.state.message && <Message text={this.state.message} color={this.state.color} />}
         <Body
           userID={this.state.userID}
           token={this.state.token}

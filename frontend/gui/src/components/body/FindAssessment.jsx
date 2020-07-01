@@ -28,7 +28,7 @@ class FindAssessment extends Component {
   }
 
   componentDidMount() {
-    this.props.handleMessage("");
+    this.props.handleMessage("", "success");
   }
 
   calculateResult() {
@@ -97,7 +97,7 @@ class FindAssessment extends Component {
     event.preventDefault();
     if (this.state.radioChecked === null) {
       this.props.handleMessage(
-        "You have not selected an answer. Please select one befor sumbit."
+        "You have not selected an answer. Please select one befor sumbit.", "danger"
       );
     }
     const answersCopy = this.state.userAnswers.slice();
@@ -109,7 +109,7 @@ class FindAssessment extends Component {
         this.state.assessmentQuestions.length &&
       this.state.radioChecked !== null
     ) {
-      this.props.handleMessage("");
+      this.props.handleMessage("", "danger");
       this.setState(
         {
           userAnswers: answersCopy,
@@ -118,7 +118,7 @@ class FindAssessment extends Component {
         () => this.setCurrentQuestion()
       );
     } else if (this.state.radioChecked !== null) {
-      this.props.handleMessage("");
+      this.props.handleMessage("", "success");
       this.setState(
         {
           userAnswers: answersCopy,
@@ -194,10 +194,10 @@ class FindAssessment extends Component {
 
   async fetchAssessment() {
     document.getElementById("assessmentId").value = "";
-    this.props.handleMessage("");
+    this.props.handleMessage("", "success");
     const id = parseInt(this.state.assessmentId);
     if (isNaN(id)) {
-      this.props.handleMessage("Assessment Id must be a number.");
+      this.props.handleMessage("Assessment Id must be a number.", "danger");
     } else {
       await fetch(`http://127.0.0.1:8000/api/assessments/${id}/`)
         .then(response => {
@@ -206,7 +206,7 @@ class FindAssessment extends Component {
             return response.json();
           } else {
             this.props.handleMessage(
-              `There is no assessment with Id ${id}. Please insert a valid Id.`
+              `There is no assessment with Id ${id}. Please insert a valid Id.`, "danger"
             );
           }
         })

@@ -124,7 +124,7 @@ class AssessmentCreate extends Component {
     if (answerObject.isCorrect === true) {
       this.decrementCorrectAnswers();
     }
-    this.props.handleMessage("");
+    this.props.handleMessage("", "success");
     this.setState({
       answersToCurrentQuestion: [
         ...this.state.answersToCurrentQuestion.filter(answer => {
@@ -419,7 +419,7 @@ class AssessmentCreate extends Component {
               isValid: true,
             },
             () => {
-              this.props.handleMessage("");
+              this.props.handleMessage("", "success");
             }
           );
         }
@@ -488,7 +488,8 @@ class AssessmentCreate extends Component {
         () => {
           if (this.state.isAssessmentFinished === true) {
             this.props.handleMessage(
-              `Assessment "${this.state.assessmentTitle}" successfully created.`
+              `Assessment "${this.state.assessmentTitle}" successfully created.`,
+              "success"
             );
           }
         }
@@ -501,7 +502,8 @@ class AssessmentCreate extends Component {
     ) {
       if (this.isDuplicateAnswer()) {
         return this.props.handleMessage(
-          "There is already another answer with this text. Please add a different one."
+          "There is already another answer with this text. Please add a different one.",
+          "danger"
         );
       } else {
         this.setState({ answerText: this.state.answerTextTyped }, () => {
@@ -519,7 +521,7 @@ class AssessmentCreate extends Component {
             }
           })();
           (() => {
-            this.props.handleMessage("");
+            this.props.handleMessage("", "success");
             this.setState({
               isValid: true,
               isCorrectAnswer: false,
@@ -551,7 +553,8 @@ class AssessmentCreate extends Component {
         },
         () => {
           this.props.handleMessage(
-            `Question number ${this.state.questionNumber} "${this.state.questionText}" successfully added to "${this.state.assessmentTitle}"`
+            `Question number ${this.state.questionNumber} "${this.state.questionText}" successfully added to "${this.state.assessmentTitle}"`,
+            "success"
           );
           this.setState({
             numberOfCorrectAnswers: 0,
@@ -571,14 +574,16 @@ class AssessmentCreate extends Component {
       this.state.answersToCurrentQuestion.length < 2
     ) {
       this.props.handleMessage(
-        "You only have one answer to your question. Please create at least another one."
+        "You only have one answer to your question. Please create at least another one.",
+        "danger"
       );
     } else if (
       event.target.id === "finishQuestion" &&
       this.state.numberOfCorrectAnswers < 1
     ) {
       this.props.handleMessage(
-        "You have no correct answer to your question. Please create one."
+        "You have no correct answer to your question. Please create one.",
+        "danger"
       );
     } else if (
       event.target.id === "finishQuestion" &&
@@ -589,7 +594,8 @@ class AssessmentCreate extends Component {
           this.state.numberOfCorrectAnswers
         } correct answers to this question, but there only has to be 1. Please delete ${
           this.state.numberOfCorrectAnswers - 1
-        }.`
+        }.`,
+        "danger"
       );
     }
     this.setState({ isValid: false });
