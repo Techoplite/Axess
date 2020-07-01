@@ -74,7 +74,9 @@ class AssessmentCreate extends Component {
         <Fragment>
           <h1 className="mb-5">Assessment Summary</h1>
           <ul className="list-group">
-            <h4 className="display-4 mb-4">{this.state.assessmentTitle}</h4>
+            <h4 className="display-4 mb-4">
+              {this.state.assessmentTitle}- ID: {this.state.currentAssessmentID}
+            </h4>
             {this.state.questions.map(question => (
               <li className="list-group-item" key={question.questionText}>
                 <h3 className="text-left">Question {question.number}</h3>
