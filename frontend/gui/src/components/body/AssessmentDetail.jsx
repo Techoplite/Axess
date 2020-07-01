@@ -38,10 +38,9 @@ class AssessmentDetail extends Component {
         <h5 className="pb-2">Question {question.number}:</h5>
         <li className="text-center list-group-item">
           {question.description !== null && <p>"{question.description}"</p>}
-          <br /> "{question.question} "
+          <p className="my-auto">"{question.question}"</p>
         </li>
-        <br />
-        <h5 className="pb-2">Available Answers:</h5>
+        <h5 className="pb-2 pt-3">Available Answers:</h5>
         {this.getAnswersToCurrentQuestion(question.id)}
       </div>
     ));
