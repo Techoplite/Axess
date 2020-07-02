@@ -32,12 +32,12 @@ class App extends Component {
 
   async handleOnClick(event) {
     event.preventDefault();
-    await fetch("http://127.0.0.1:8000/rest-auth/logout/", { method: "POST" }).then(this.setState({ isAuthenticated: false, userRole: undefined, username: null, password: null }, () => this.handleMessage("Log Out successful.", "success")))
+    await fetch("http://127.0.0.1:8000/rest-auth/logout/", { method: "POST" }).then(this.setState({ isAuthenticated: false, userRole: undefined, username: null, password: null, radioChecked: undefined }, () => this.handleMessage("Log Out successful.", "success")))
   }
 
-  async handleLogIn(event) {
+  handleLogIn(event) {
     event.preventDefault();
-    await fetch("http://127.0.0.1:8000/rest-auth/login/", {
+    fetch("http://127.0.0.1:8000/rest-auth/login/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -64,10 +64,10 @@ class App extends Component {
       );
   }
 
-  async handleRegister(event) {
-    event.persist()
+  handleRegister(event) {
+    event.preventDefault()
     this.state.password1 !== this.state.password2 ? this.setState({ passwordsDiffer: true }) :
-      await fetch("http://127.0.0.1:8000/rest-auth/registration/", {
+      fetch("http://127.0.0.1:8000/rest-auth/registration/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
