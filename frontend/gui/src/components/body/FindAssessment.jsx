@@ -379,6 +379,14 @@ class FindAssessment extends Component {
                 onClick={this.handleSubmitAnswer}
                 className="btn btn-success ml-auto"
               />
+              {this.state.allQuestionsAnswered === true && (
+                <input
+                  type="submit"
+                  value="Finish Assessment"
+                  onClick={this.handleFinishAssessment}
+                  className="d-block btn btn-danger ml-2"
+                />
+              )}
             </div>
             <div className="row mt-5 mx-3">
               {this.state.currentQuestionNumber > 1 && (
@@ -400,14 +408,6 @@ class FindAssessment extends Component {
                   />
                 )}
             </div>
-            {this.state.allQuestionsAnswered === true && (
-              <input
-                type="submit"
-                value="Finish Assessment"
-                onClick={this.handleFinishAssessment}
-                className="d-block btn btn-danger"
-              />
-            )}
           </form>
         </Fragment>
       );
