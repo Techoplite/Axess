@@ -213,82 +213,106 @@ class FindAssessment extends Component {
     this.setState({ [event.target.id]: event.target.value });
   }
 
-  async fetchAssessment() {
+  async fetchAssessment(event) {
+    event.preventDefault();
     document.getElementById("assessmentId").value = "";
     this.props.handleMessage("", "success");
     const id = parseInt(this.state.assessmentId);
     if (isNaN(id)) {
       this.props.handleMessage("Assessment Id must be a number.", "danger");
     } else {
-      await fetch(`http://127.0.0.1:8000/api/assessments/${id}/`, {
+      await fetch("http://127.0.0.1:8000/api/results/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Token ${this.props.token}`,
         },
       })
-        .then(response => {
-          if (response.ok) {
-            this.setState({ assessmentfound: true });
-            return response.json();
-          } else {
+        .then(response => response.json())
+        .then(async data => {
+          if (
+            await data.some(
+              result =>
+                result.student === this.props.userID && result.assessment === id
+            )
+          ) {
             this.props.handleMessage(
-              `There is no assessment with Id ${id}. Please insert a valid Id.`,
+              "Your have already carried out this assessment.",
               "danger"
             );
-          }
-        })
-        .then(data => {
-          if (data !== undefined) {
-            this.setState({
-              assessment: data,
-              assessmentTitle: data["title"],
-            });
+          } else {
+            await fetch(`http://127.0.0.1:8000/api/assessments/${id}/`, {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Token ${this.props.token}`,
+              },
+            })
+              .then(response => {
+                if (response.ok) {
+                  this.setState({ assessmentfound: true });
+                  return response.json();
+                } else {
+                  this.props.handleMessage(
+                    `There is no assessment with Id ${id}. Please insert a valid Id.`,
+                    "danger"
+                  );
+                }
+              })
+              .then(data => {
+                if (data !== undefined) {
+                  this.setState({
+                    assessment: data,
+                    assessmentTitle: data["title"],
+                  });
+                }
+              });
+            await fetch("http://127.0.0.1:8000/api/questions/", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Token ${this.props.token}`,
+              },
+            })
+              .then(response => response.json())
+              .then(data => {
+                if (this.state.assessment) {
+                  this.setState(
+                    {
+                      assessmentQuestions: data.filter(
+                        question =>
+                          question.assessment === this.state.assessment.id
+                      ),
+                    },
+                    () => this.initializeUserAnswers()
+                  );
+                }
+              });
+            await fetch("http://127.0.0.1:8000/api/answers/", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Token ${this.props.token}`,
+              },
+            })
+              .then(response => response.json())
+              .then(data => {
+                if (this.state.assessmentQuestions) {
+                  this.setState(
+                    {
+                      assessmentAnswers: [
+                        this.state.assessmentQuestions.map(question =>
+                          data.filter(answer => answer.question === question.id)
+                        ),
+                      ],
+                    },
+                    () => this.setCurrentQuestion()
+                  );
+                }
+              })
+              .then(this.setState({ allQuestionsAnswered: false }));
           }
         });
-      await fetch("http://127.0.0.1:8000/api/questions/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${this.props.token}`,
-        },
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (this.state.assessment) {
-            this.setState(
-              {
-                assessmentQuestions: data.filter(
-                  question => question.assessment === this.state.assessment.id
-                ),
-              },
-              () => this.initializeUserAnswers()
-            );
-          }
-        });
-      await fetch("http://127.0.0.1:8000/api/answers/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${this.props.token}`,
-        },
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (this.state.assessmentQuestions) {
-            this.setState(
-              {
-                assessmentAnswers: [
-                  this.state.assessmentQuestions.map(question =>
-                    data.filter(answer => answer.question === question.id)
-                  ),
-                ],
-              },
-              () => this.setCurrentQuestion()
-            );
-          }
-        })
-        .then(this.setState({ allQuestionsAnswered: false }));
     }
   }
 
