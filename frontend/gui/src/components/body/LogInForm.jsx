@@ -13,7 +13,7 @@ class LogInForm extends Component {
   render() {
     return (
       !this.props.isAuthenticated && (
-        <form className="col-8 mx-auto">
+        <form className="col-8 mx-auto" autoComplete="off">
           <h1 className="mb-4">Log In</h1>
           <div className="form-group">
             <label htmlFor="username" className="float-left">
