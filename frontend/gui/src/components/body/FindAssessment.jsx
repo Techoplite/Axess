@@ -22,8 +22,30 @@ class FindAssessment extends Component {
     this.setAllQuestionAnswered = this.setAllQuestionAnswered.bind(this);
     this.calculateResult = this.calculateResult.bind(this);
     this.setCurrentUserAnswer = this.setCurrentUserAnswer.bind(this);
+    this.handlePrevious = this.handlePrevious.bind(this);
+    this.handleNext = this.handleNext.bind(this);
     this.handleCurrentQuestionNumber = this.handleCurrentQuestionNumber.bind(
       this
+    );
+  }
+
+  handlePrevious(event) {
+    event.preventDefault();
+    this.setState(
+      {
+        currentQuestionNumber: this.state.currentQuestionNumber - 1,
+      },
+      () => this.setCurrentQuestion()
+    );
+  }
+
+  handleNext(event) {
+    event.preventDefault();
+    this.setState(
+      {
+        currentQuestionNumber: this.state.currentQuestionNumber + 1,
+      },
+      () => this.setCurrentQuestion()
     );
   }
 
@@ -114,7 +136,6 @@ class FindAssessment extends Component {
       this.setState(
         {
           userAnswers: answersCopy,
-          currentQuestionNumber: 1,
         },
         () => this.setCurrentQuestion()
       );
@@ -123,7 +144,6 @@ class FindAssessment extends Component {
       this.setState(
         {
           userAnswers: answersCopy,
-          currentQuestionNumber: this.state.currentQuestionNumber + 1,
         },
         () => this.setCurrentQuestion()
       );
@@ -352,18 +372,40 @@ class FindAssessment extends Component {
                 </div>
               </Fragment>
             )}
-            <input
-              type="submit"
-              value="Submit"
-              onClick={this.handleSubmitAnswer}
-              className="d-block btn btn-success mt-5 float-right mr-3"
-            />
+            <div className="row mt-5 mx-3">
+              <input
+                type="submit"
+                value="Submit"
+                onClick={this.handleSubmitAnswer}
+                className="btn btn-success ml-auto"
+              />
+            </div>
+            <div className="row mt-5 mx-3">
+              {this.state.currentQuestionNumber > 1 && (
+                <input
+                  type="button"
+                  value="Previous"
+                  onClick={this.handlePrevious}
+                  className="btn btn-warning"
+                />
+              )}
+              {this.state.assessmentQuestions &&
+                this.state.currentQuestionNumber <
+                  this.state.assessmentQuestions.length && (
+                  <input
+                    type="button"
+                    value="Next"
+                    onClick={this.handleNext}
+                    className="btn btn-warning ml-auto"
+                  />
+                )}
+            </div>
             {this.state.allQuestionsAnswered === true && (
               <input
                 type="submit"
                 value="Finish Assessment"
                 onClick={this.handleFinishAssessment}
-                className="d-block btn btn-danger mt-5 float-right mr-3"
+                className="d-block btn btn-danger"
               />
             )}
           </form>
