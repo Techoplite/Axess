@@ -97,7 +97,8 @@ class FindAssessment extends Component {
     event.preventDefault();
     if (this.state.radioChecked === null) {
       this.props.handleMessage(
-        "You have not selected an answer. Please select one befor sumbit.", "danger"
+        "You have not selected an answer. Please select one befor sumbit.",
+        "danger"
       );
     }
     const answersCopy = this.state.userAnswers.slice();
@@ -199,14 +200,21 @@ class FindAssessment extends Component {
     if (isNaN(id)) {
       this.props.handleMessage("Assessment Id must be a number.", "danger");
     } else {
-      await fetch(`http://127.0.0.1:8000/api/assessments/${id}/`)
+      await fetch(`http://127.0.0.1:8000/api/assessments/${id}/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${this.props.token}`,
+        },
+      })
         .then(response => {
           if (response.ok) {
             this.setState({ assessmentfound: true });
             return response.json();
           } else {
             this.props.handleMessage(
-              `There is no assessment with Id ${id}. Please insert a valid Id.`, "danger"
+              `There is no assessment with Id ${id}. Please insert a valid Id.`,
+              "danger"
             );
           }
         })
@@ -218,7 +226,13 @@ class FindAssessment extends Component {
             });
           }
         });
-      await fetch("http://127.0.0.1:8000/api/questions/")
+      await fetch("http://127.0.0.1:8000/api/questions/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${this.props.token}`,
+        },
+      })
         .then(response => response.json())
         .then(data => {
           if (this.state.assessment) {
@@ -232,7 +246,13 @@ class FindAssessment extends Component {
             );
           }
         });
-      await fetch("http://127.0.0.1:8000/api/answers/")
+      await fetch("http://127.0.0.1:8000/api/answers/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${this.props.token}`,
+        },
+      })
         .then(response => response.json())
         .then(data => {
           if (this.state.assessmentQuestions) {

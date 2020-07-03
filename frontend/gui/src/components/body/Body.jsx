@@ -71,6 +71,7 @@ class Body extends Component {
               />
               <Route path="/carry-out-assessment">
                 <FindAssessment
+                  token={this.props.token}
                   handleMessage={this.props.handleMessage}
                   userID={this.props.userID}
                 />
