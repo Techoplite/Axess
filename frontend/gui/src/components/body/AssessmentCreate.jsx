@@ -113,6 +113,7 @@ class AssessmentCreate extends Component {
   }
 
   handleIsCorrectAnswer(event) {
+    event.preventDefault();
     let newState = !this.state.isCorrectAnswer;
     this.setState({ isCorrectAnswer: newState });
   }
@@ -126,7 +127,10 @@ class AssessmentCreate extends Component {
     if (answerObject.isCorrect === true) {
       this.decrementCorrectAnswers();
     }
-    this.props.handleMessage("", "success");
+    this.props.handleMessage(
+      "Available answer successfully deleted.",
+      "success"
+    );
     this.setState({
       answersToCurrentQuestion: [
         ...this.state.answersToCurrentQuestion.filter(answer => {
@@ -383,7 +387,9 @@ class AssessmentCreate extends Component {
   }
 
   handleChange(event) {
+    event.preventDefault();
     this.setState({ [event.target.id]: event.target.value });
+    console.log(event.target.id, event.target.value);
   }
 
   handleSubmit(event) {

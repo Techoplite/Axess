@@ -37,7 +37,9 @@ class AssessmentDetail extends Component {
         className="text-left list-group-item py-3 mb-5 border">
         <h5 className="pb-2">Question {question.number}:</h5>
         <li className="text-center list-group-item">
-          {question.description !== null && <p>"{question.description}"</p>}
+          {question.description !== null && question.description !== "" && (
+            <p>"{question.description}"</p>
+          )}
           <p className="my-auto">"{question.question}"</p>
         </li>
         <h5 className="pb-2 pt-3">Available Answers:</h5>

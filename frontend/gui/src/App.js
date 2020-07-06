@@ -57,7 +57,7 @@ class App extends Component {
               Authorization: `Token ${this.state.token}`,
             },
           }).then(response => this.state.token ?
-            response.json().then(data => this.setState({ isAuthenticated: true, userRole: data.role, userID: data.pk }, this.handleMessage("Login successful.", "success"))) : this.handleMessage("There is no user with username and password provided.", "danger")
+            response.json().then(data => this.setState({ isAuthenticated: true, userRole: data.role, userID: data.pk }, this.handleMessage("Login successful.", "success"))) : (!this.state.username || !this.state.password) ? this.handleMessage("Please fill in all the form fields.", "danger") : this.handleMessage("There is no user with username and password provided.", "danger")
           )
         )
       );
@@ -65,7 +65,7 @@ class App extends Component {
 
   async handleRegister(event) {
     event.preventDefault()
-    this.state.password1 !== this.state.password2 ? this.setState({ passwordsDiffer: true }) :
+    this.state.password1 !== this.state.password2 ? this.handleMessage("The passwords do not match. Please enter the chosen password twice.", "dange") :
       await fetch("http://127.0.0.1:8000/rest-auth/registration/", {
         method: "POST",
         headers: {
@@ -83,7 +83,7 @@ class App extends Component {
       })
         .then(response => response.json())
         .then(data => this.setState(
-          { token: data.key, password: this.state.password1 }, () => this.handleLogIn(event)))
+          { token: data.key, password: this.state.password1 }, () => this.state.token ? this.handleLogIn(event) : this.handleMessage("Please fill in all the form fields.", "danger")))
   }
 
 
